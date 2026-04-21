@@ -1,0 +1,43 @@
+{
+  "name": "Soukly – UAE Pre-loved Marketplace",
+  "short_name": "Soukly",
+  "description": "Buy and sell pre-loved fashion, beauty & home across Dubai and the UAE.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4eadf",
+  "theme_color": "#f28c00",
+  "lang": "en",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/soukly_icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/soukly_icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse listings",
+      "short_name": "Browse",
+      "description": "See all pre-loved listings",
+      "url": "/",
+      "icons": [{ "src": "assets/soukly_icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Sell a product",
+      "short_name": "Sell",
+      "description": "List a pre-loved item for sale",
+      "url": "/?view=sell",
+      "icons": [{ "src": "assets/soukly_icon.svg", "sizes": "any" }]
+    }
+  ]
+}
