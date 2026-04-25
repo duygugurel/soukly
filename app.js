@@ -101,6 +101,7 @@ const elements = {
   authFeedback: document.getElementById("authFeedback"),
   favoritesCount: document.getElementById("favoritesCount"),
   notificationsCount: document.getElementById("notificationsCount"),
+  headerAuthButton: document.getElementById("headerAuthButton"),
   signOutButton: document.getElementById("signOutButton"),
   navLinks: document.querySelectorAll("[data-view-target]"),
   viewPanels: document.querySelectorAll(".view-panel"),
@@ -341,6 +342,7 @@ function bindEvents() {
   elements.productForm.addEventListener("submit", handleProductSubmit);
   elements.productImageInput.addEventListener("change", handleImageChange);
   elements.profilePhotoInput.addEventListener("change", handleProfilePhotoChange);
+  elements.headerAuthButton.addEventListener("click", handleHeaderAuthClick);
   elements.signOutButton.addEventListener("click", handleSignOut);
   elements.brandFilterInput.addEventListener("input", handleQueryInput);
   elements.minPriceFilterInput.addEventListener("input", handlePriceInput);
@@ -1220,6 +1222,11 @@ function handleProfilePhotoChange(event) {
   }
 }
 
+function handleHeaderAuthClick() {
+  setAuthMode("signIn");
+  activateView("home");
+}
+
 function handleSignOut() {
   void (async () => {
     await supabaseClient.auth.signOut();
@@ -1525,10 +1532,12 @@ function renderAuth() {
     elements.authStatus.textContent = `Signed in as ${state.currentUser.name}`;
     elements.authHint.textContent = "You can now add products, save favorites, make offers, and message.";
     elements.signOutButton.hidden = false;
+    elements.headerAuthButton.hidden = true;
   } else {
     elements.authStatus.textContent = "Guest browsing";
     elements.authHint.textContent = "Sign in to publish products, save favorites, comment, and chat.";
     elements.signOutButton.hidden = true;
+    elements.headerAuthButton.hidden = false;
   }
   elements.favoritesCount.textContent = String(state.favoriteIds.length);
   elements.notificationsCount.textContent = String(getNotificationsCount());
