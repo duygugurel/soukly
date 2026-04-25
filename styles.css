@@ -244,9 +244,18 @@ h2 {
 }
 
 .header-brand h1 {
-  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   margin-bottom: 0;
   line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.brand-soukly {
+  color: #26352E;
+}
+
+.brand-club {
+  color: #CDB89A;
 }
 
 .header-logo {
@@ -1083,17 +1092,18 @@ button:disabled {
 }
 
 .splash-logo {
-  width: 140px;
+  width: 320px;
   height: auto;
 }
 
 .splash-slogan {
-  font-family: "Instrument Serif", serif;
-  font-style: italic;
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--accent-dark);
-  letter-spacing: 0.01em;
+  font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #A9B8A2;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
   margin: 0;
   text-align: center;
   max-width: 28ch;
@@ -1295,14 +1305,14 @@ button:disabled {
 }
 
 /* Banner individual colours — earthy palette */
-.cat-banner--woman   { background: linear-gradient(135deg, #F6F4EF 0%, #ede5d8 100%); color: #26352E; }
-.cat-banner--man     { background: linear-gradient(135deg, #edf0ec 0%, #dce5da 100%); color: #26352E; }
-.cat-banner--shoes   { background: linear-gradient(135deg, #f0ede8 0%, #e2d9cc 100%); color: #26352E; }
-.cat-banner--home    { background: linear-gradient(135deg, #f4f1ea 0%, #e8e0d0 100%); color: #26352E; }
-.cat-banner--beauty  { background: linear-gradient(135deg, #f5f0eb 0%, #ead9c8 100%); color: #26352E; }
-.cat-banner--kids    { background: linear-gradient(135deg, #edf2ec 0%, #d8e8d4 100%); color: #26352E; }
-.cat-banner--sports  { background: linear-gradient(135deg, #eaf0ed 0%, #cfdfd4 100%); color: #26352E; }
-.cat-banner--accessories { background: linear-gradient(135deg, #f5f0e8 0%, #e8dac4 100%); color: #26352E; }
+.cat-banner--woman   { background: linear-gradient(135deg, #ede0d4 0%, #d9c4b0 100%); color: #26352E; }
+.cat-banner--man     { background: linear-gradient(135deg, #d4ddd6 0%, #b8cbbC 100%); color: #26352E; }
+.cat-banner--shoes   { background: linear-gradient(135deg, #dfd8cc 0%, #ccc0ae 100%); color: #26352E; }
+.cat-banner--home    { background: linear-gradient(135deg, #e8dfc8 0%, #d4c8a8 100%); color: #26352E; }
+.cat-banner--beauty  { background: linear-gradient(135deg, #e8d4c0 0%, #d4b89a 100%); color: #26352E; }
+.cat-banner--kids    { background: linear-gradient(135deg, #ccdacc 0%, #adc4aa 100%); color: #26352E; }
+.cat-banner--sports  { background: linear-gradient(135deg, #c4d4cc 0%, #a2b8b0 100%); color: #26352E; }
+.cat-banner--accessories { background: linear-gradient(135deg, #e4d8bc 0%, #cdb89a 100%); color: #26352E; }
 
 /* ── Category strip ── */
 .category-strip {

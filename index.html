@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Soukly – UAE Pre-loved Marketplace</title>
+    <title>SouklyClub – Buy. Sell. Love Again.</title>
     <meta name="description" content="Buy and sell pre-loved fashion, beauty, home & more across Dubai and the UAE. Make offers, chat with sellers, and get it delivered." />
 
     <!-- Open Graph (WhatsApp / LinkedIn / Twitter preview) -->
-    <meta property="og:title"       content="Soukly – UAE Pre-loved Marketplace" />
+    <meta property="og:title"       content="SouklyClub – Buy. Sell. Love Again." />
     <meta property="og:description" content="Buy and sell pre-loved fashion, beauty, home & more across Dubai and the UAE." />
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content="https://fabulous-cascaron-1bb996.netlify.app" />
     <meta property="og:image"       content="https://fabulous-cascaron-1bb996.netlify.app/assets/soukly_og.png" />
     <meta name="twitter:card"       content="summary_large_image" />
 
-    <!-- Favicon inline -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='80' cy='80' r='78' fill='%23F28C00'/%3E%3Cpath d='M52 106 L52 75 Q52 47 80 47 Q108 47 108 75 L108 106 Z' fill='white' opacity='0.95'/%3E%3Cpath d='M63 106 L63 78 Q63 60 80 60 Q97 60 97 78 L97 106 Z' fill='%23F28C00'/%3E%3Cpath d='M80 37 C80 37 74 28 67 32 C61 36 61 45 80 52 C99 45 99 36 93 32 C86 28 80 37 80 37 Z' fill='white' opacity='0.92'/%3E%3C/svg%3E" />
+    <!-- Favicon inline — shopping bag with S -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='160' height='160' rx='36' fill='%2326352E'/%3E%3Cpath d='M55 75 Q55 52 80 52 Q105 52 105 75 L105 112 Q105 118 99 118 L61 118 Q55 118 55 112 Z' fill='none' stroke='%23CDB89A' stroke-width='6'/%3E%3Cpath d='M68 75 Q68 62 80 62 Q92 62 92 75' fill='none' stroke='%23CDB89A' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='80' cy='95' r='8' fill='%23CDB89A'/%3E%3C/svg%3E" />
 
     <!-- ═══ PWA — Web App Manifest ═══ -->
     <link rel="manifest" href="manifest.json" />
@@ -27,7 +27,7 @@
     <!-- iOS Safari: fullscreen app behaviour -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Soukly" />
+    <meta name="apple-mobile-web-app-title" content="SouklyClub" />
     <link rel="apple-touch-icon" href="assets/soukly_icon.svg" />
 
     <!-- Microsoft Tiles (Windows / Edge) -->
@@ -44,29 +44,27 @@
   </head>
   <body>
     <div class="splash-screen" id="splashScreen">
-      <svg class="splash-logo" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" aria-label="Soukly">
-        <g transform="translate(340,195)">
-          <circle cx="0" cy="0" r="105" fill="#A9B8A2" opacity="0.15"/>
-          <circle cx="0" cy="0" r="90" fill="#A9B8A2" opacity="0.22"/>
-          <circle cx="0" cy="0" r="78" fill="#26352E"/>
-          <path d="M-28 26 L-28 -5 Q-28 -33 0 -33 Q28 -33 28 -5 L28 26 Z" fill="white" opacity="0.95"/>
-          <path d="M-17 26 L-17 -2 Q-17 -20 0 -20 Q17 -20 17 -2 L17 26 Z" fill="#26352E"/>
-          <path d="M0 -43 C0 -43 -6 -52 -13 -48 C-19 -44 -19 -35 0 -28 C19 -35 19 -44 13 -48 C6 -52 0 -43 0 -43 Z" fill="white" opacity="0.92"/>
-          <rect x="-34" y="24" width="68" height="4" rx="2" fill="white" opacity="0.45"/>
+      <svg class="splash-logo" viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg" aria-label="SouklyClub">
+        <g transform="translate(340,190)">
+          <rect x="-62" y="-62" width="124" height="124" rx="28" fill="#26352E"/>
+          <path d="M-28 10 L-28 -18 Q-28 -38 0 -38 Q28 -38 28 -18 L28 38 Q28 44 22 44 L-22 44 Q-28 44 -28 38 Z" fill="none" stroke="#CDB89A" stroke-width="5.5"/>
+          <path d="M-14 8 Q-14 -4 0 -4 Q14 -4 14 8" fill="none" stroke="#CDB89A" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M0 22 C-4 18 -9 14 -9 9 C-9 5 -5 3 0 8 C5 3 9 5 9 9 C9 14 4 18 0 22 Z" fill="#CDB89A"/>
         </g>
-        <text x="340" y="322" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="52" font-weight="500" fill="#26352E" letter-spacing="4">Soukly</text>
-        <text x="340" y="358" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="400" fill="#26352E" letter-spacing="2.5">YOUR NEIGHBOURHOOD SOUK FOR PRE-LOVED FINDS</text>
-        <circle cx="295" cy="385" r="3" fill="#F5C97A"/>
-        <circle cx="340" cy="385" r="3" fill="#26352E"/>
-        <circle cx="385" cy="385" r="3" fill="#F5C97A"/>
+        <text x="294" y="322" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="56" font-weight="700" fill="#26352E" letter-spacing="-1">Soukly</text>
+        <text x="436" y="322" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="56" font-weight="700" fill="#CDB89A" letter-spacing="-1">Club</text>
+        <text x="340" y="358" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="400" fill="#A9B8A2" letter-spacing="4">BUY. SELL. LOVE AGAIN.</text>
+        <circle cx="310" cy="382" r="3" fill="#CDB89A"/>
+        <circle cx="340" cy="382" r="3" fill="#26352E"/>
+        <circle cx="370" cy="382" r="3" fill="#A9B8A2"/>
       </svg>
-      <p class="splash-slogan">Your neighbourhood souk for pre-loved finds</p>
+      <p class="splash-slogan">Buy. Sell. Love again.</p>
     </div>
 
     <div class="app-shell">
       <header class="app-header">
         <div class="header-brand">
-          <h1>Soukly</h1>
+          <h1><span class="brand-soukly">Soukly</span><span class="brand-club">Club</span></h1>
         </div>
         <nav class="header-nav">
           <button class="nav-link active" data-view-target="home">Home</button>
@@ -99,7 +97,7 @@
           <!-- Hero banner -->
           <section class="hero-banner card">
             <div class="hero-banner-text">
-              <p class="eyebrow">UAE pre-loved marketplace</p>
+              <p class="eyebrow">Buy. Sell. Love again.</p>
               <h2>Pre-loved finds,<br>delivered to your door.</h2>
               <div class="hero-banner-actions">
                 <button class="solid-button" data-view-target="sell">Start selling</button>
@@ -734,4 +732,5 @@
     </script>
   </body>
 </html>
+
 
