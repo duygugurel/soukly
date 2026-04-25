@@ -1106,9 +1106,8 @@ button:disabled {
 }
 
 .splash-icon {
-  width: 110px;
+  width: 180px;
   height: auto;
-  filter: drop-shadow(0 8px 24px rgba(38,53,46,0.18));
 }
 
 .splash-brand {
