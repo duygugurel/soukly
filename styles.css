@@ -106,9 +106,16 @@ img {
 }
 
 .app-header {
-  grid-template-columns: 1fr auto;
-  align-items: end;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
   margin-bottom: 24px;
+  gap: 32px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .header-actions,
@@ -186,7 +193,7 @@ h2 {
 }
 
 .layout {
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 1fr;
   align-items: start;
 }
 
@@ -332,14 +339,19 @@ h2 {
 .ghost-button,
 .filter-chip {
   border-radius: 999px;
-  padding: 12px 18px;
+  padding: 10px 18px;
 }
 
 .nav-link {
   text-align: left;
-  background: rgba(255, 255, 255, 0.58);
+  background: transparent;
   color: var(--text);
   border: 1px solid transparent;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .nav-link.active,
@@ -1174,6 +1186,18 @@ button:disabled {
   background: rgba(255, 255, 255, 0.96);
   border-color: rgba(242, 140, 0, 0.3);
   transform: translateY(-2px);
+}
+
+.hero-shortcut-chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.hero-shortcut-chip.active:hover {
+  background: var(--accent-dark, #d97a00);
+  border-color: var(--accent-dark, #d97a00);
 }
 
 /* ── Auth modal ── */
@@ -2466,8 +2490,11 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
-  /* Hide sidebar on tablets — only visible on wide desktop */
   .sidebar {
+    display: none;
+  }
+
+  .header-nav {
     display: none;
   }
 
@@ -2484,9 +2511,9 @@ button:disabled {
 
   /* Header: logo top, actions wrap below */
   .app-header {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
     gap: 10px;
-    align-items: start;
+    align-items: center;
     margin-bottom: 16px;
   }
 

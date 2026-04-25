@@ -68,6 +68,11 @@
         <div class="header-brand">
           <h1>Soukly</h1>
         </div>
+        <nav class="header-nav">
+          <button class="nav-link active" data-view-target="home">Home</button>
+          <button class="nav-link" data-view-target="messages">Messages</button>
+          <button class="nav-link" data-view-target="profile">My profile</button>
+        </nav>
         <div class="header-actions">
           <button class="ghost-button notifications-badge" data-view-target="notifications">
             Notifications
@@ -83,34 +88,12 @@
         </div>
       </header>
 
+      <div hidden>
+        <strong id="authStatus"></strong>
+        <span id="authHint"></span>
+      </div>
+
       <main class="layout">
-        <aside class="sidebar card">
-          <div class="brand-lockup">
-            <svg class="sidebar-icon-lg" viewBox="-105 -105 210 210" xmlns="http://www.w3.org/2000/svg" aria-label="Soukly icon">
-              <circle cx="0" cy="0" r="105" fill="#F28C00" opacity="0.08"/>
-              <circle cx="0" cy="0" r="90" fill="#F28C00" opacity="0.13"/>
-              <circle cx="0" cy="0" r="78" fill="#F28C00"/>
-              <path d="M-28 26 L-28 -5 Q-28 -33 0 -33 Q28 -33 28 -5 L28 26 Z" fill="white" opacity="0.95"/>
-              <path d="M-17 26 L-17 -2 Q-17 -20 0 -20 Q17 -20 17 -2 L17 26 Z" fill="#F28C00"/>
-              <path d="M0 -43 C0 -43 -6 -52 -13 -48 C-19 -44 -19 -35 0 -28 C19 -35 19 -44 13 -48 C6 -52 0 -43 0 -43 Z" fill="white" opacity="0.92"/>
-              <rect x="-34" y="24" width="68" height="4" rx="2" fill="white" opacity="0.45"/>
-            </svg>
-            <span class="sidebar-brand-label">UAE Pre-loved Marketplace</span>
-          </div>
-
-          <nav class="nav-stack">
-            <button class="nav-link active" data-view-target="home">Home</button>
-            <button class="nav-link" data-view-target="sell">Add product</button>
-            <button class="nav-link" data-view-target="messages">Messages</button>
-            <button class="nav-link" data-view-target="profile">My profile</button>
-          </nav>
-
-          <div class="status-card">
-            <p class="status-label">Current mode</p>
-            <strong id="authStatus">Guest browsing</strong>
-            <span id="authHint">Sign in to publish products and manage your profile.</span>
-          </div>
-        </aside>
 
         <section class="main-column">
           <!-- Hero banner -->
@@ -129,6 +112,19 @@
               </div>
             </div>
           </section>
+
+          <!-- Location permission modal -->
+          <div class="auth-modal-overlay" id="locationModalOverlay" hidden>
+            <div class="auth-modal card" style="max-width:400px;text-align:center;">
+              <div style="font-size:2.5rem;margin-bottom:12px;">📍</div>
+              <h3 style="margin-bottom:8px;">Share your location?</h3>
+              <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:24px;">
+                Soukly will use your location to show listings near you. Your location is never stored or shared.
+              </p>
+              <button class="solid-button full-width" id="locationAllowButton">Allow location access</button>
+              <button class="ghost-button full-width" id="locationDenyButton" style="margin-top:10px;">Not now</button>
+            </div>
+          </div>
 
           <!-- Auth modal (hidden by default, shown when needed) -->
           <div class="auth-modal-overlay" id="authModalOverlay" hidden>

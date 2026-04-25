@@ -356,14 +356,22 @@ function bindEvents() {
   });
 
   // Hero shortcut chips
-  document.querySelectorAll("[data-shortcut]").forEach((btn) => {
+  const allShortcutChips = document.querySelectorAll("[data-shortcut]");
+  function setActiveShortcut(activeKey) {
+    allShortcutChips.forEach((c) => c.classList.toggle("active", c.dataset.shortcut === activeKey));
+  }
+
+  allShortcutChips.forEach((btn) => {
     btn.addEventListener("click", () => {
       const key = btn.dataset.shortcut;
 
       if (key === "near-me") {
+        setActiveShortcut("near-me");
         applyNearMeFilter(btn);
         return;
       }
+
+      setActiveShortcut(key);
 
       // Reset all filters first
       state.filters.query = "";
@@ -1224,7 +1232,7 @@ function handleProfilePhotoChange(event) {
 
 function handleHeaderAuthClick() {
   setAuthMode("signIn");
-  activateView("home");
+  document.getElementById("authModalOverlay").hidden = false;
 }
 
 function handleSignOut() {
@@ -1266,6 +1274,23 @@ function applyNearMeFilter(btn) {
     return;
   }
 
+  // Show friendly permission modal first
+  const overlay = document.getElementById("locationModalOverlay");
+  overlay.hidden = false;
+
+  document.getElementById("locationDenyButton").onclick = () => {
+    overlay.hidden = true;
+    // Remove active state from Near me chip
+    btn.classList.remove("active");
+  };
+
+  document.getElementById("locationAllowButton").onclick = () => {
+    overlay.hidden = true;
+    startGeolocation(btn);
+  };
+}
+
+function startGeolocation(btn) {
   const originalLabel = btn.innerHTML;
   btn.innerHTML = "📍 Locating…";
   btn.disabled = true;
