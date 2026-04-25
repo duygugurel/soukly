@@ -14,8 +14,8 @@
     <meta property="og:image"       content="https://fabulous-cascaron-1bb996.netlify.app/assets/soukly_og.png" />
     <meta name="twitter:card"       content="summary_large_image" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/soukly_icon.svg" />
+    <!-- Favicon inline -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='80' cy='80' r='78' fill='%23F28C00'/%3E%3Cpath d='M52 106 L52 75 Q52 47 80 47 Q108 47 108 75 L108 106 Z' fill='white' opacity='0.95'/%3E%3Cpath d='M63 106 L63 78 Q63 60 80 60 Q97 60 97 78 L97 106 Z' fill='%23F28C00'/%3E%3Cpath d='M80 37 C80 37 74 28 67 32 C61 36 61 45 80 52 C99 45 99 36 93 32 C86 28 80 37 80 37 Z' fill='white' opacity='0.92'/%3E%3C/svg%3E" />
 
     <!-- ═══ PWA — Web App Manifest ═══ -->
     <link rel="manifest" href="manifest.json" />
@@ -44,7 +44,22 @@
   </head>
   <body>
     <div class="splash-screen" id="splashScreen">
-      <img src="assets/soukly_final_logo.svg" alt="Soukly" class="splash-logo" />
+      <svg class="splash-logo" viewBox="0 0 680 500" xmlns="http://www.w3.org/2000/svg" aria-label="Soukly">
+        <g transform="translate(340,195)">
+          <circle cx="0" cy="0" r="105" fill="#F28C00" opacity="0.08"/>
+          <circle cx="0" cy="0" r="90" fill="#F28C00" opacity="0.13"/>
+          <circle cx="0" cy="0" r="78" fill="#F28C00"/>
+          <path d="M-28 26 L-28 -5 Q-28 -33 0 -33 Q28 -33 28 -5 L28 26 Z" fill="white" opacity="0.95"/>
+          <path d="M-17 26 L-17 -2 Q-17 -20 0 -20 Q17 -20 17 -2 L17 26 Z" fill="#F28C00"/>
+          <path d="M0 -43 C0 -43 -6 -52 -13 -48 C-19 -44 -19 -35 0 -28 C19 -35 19 -44 13 -48 C6 -52 0 -43 0 -43 Z" fill="white" opacity="0.92"/>
+          <rect x="-34" y="24" width="68" height="4" rx="2" fill="white" opacity="0.45"/>
+        </g>
+        <text x="340" y="322" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="52" font-weight="500" fill="#F28C00" letter-spacing="4">Soukly</text>
+        <text x="340" y="358" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="400" fill="#BA7517" letter-spacing="2.5">YOUR NEIGHBOURHOOD SOUK FOR PRE-LOVED FINDS</text>
+        <circle cx="295" cy="385" r="3" fill="#F5C97A"/>
+        <circle cx="340" cy="385" r="3" fill="#F28C00"/>
+        <circle cx="385" cy="385" r="3" fill="#F5C97A"/>
+      </svg>
       <p class="splash-slogan">Your neighbourhood souk for pre-loved finds</p>
     </div>
 
@@ -70,7 +85,15 @@
       <main class="layout">
         <aside class="sidebar card">
           <div class="brand-lockup">
-            <img src="assets/soukly_icon.svg" alt="Soukly" class="sidebar-icon-lg" />
+            <svg class="sidebar-icon-lg" viewBox="-105 -105 210 210" xmlns="http://www.w3.org/2000/svg" aria-label="Soukly icon">
+              <circle cx="0" cy="0" r="105" fill="#F28C00" opacity="0.08"/>
+              <circle cx="0" cy="0" r="90" fill="#F28C00" opacity="0.13"/>
+              <circle cx="0" cy="0" r="78" fill="#F28C00"/>
+              <path d="M-28 26 L-28 -5 Q-28 -33 0 -33 Q28 -33 28 -5 L28 26 Z" fill="white" opacity="0.95"/>
+              <path d="M-17 26 L-17 -2 Q-17 -20 0 -20 Q17 -20 17 -2 L17 26 Z" fill="#F28C00"/>
+              <path d="M0 -43 C0 -43 -6 -52 -13 -48 C-19 -44 -19 -35 0 -28 C19 -35 19 -44 13 -48 C6 -52 0 -43 0 -43 Z" fill="white" opacity="0.92"/>
+              <rect x="-34" y="24" width="68" height="4" rx="2" fill="white" opacity="0.45"/>
+            </svg>
             <span class="sidebar-brand-label">UAE Pre-loved Marketplace</span>
           </div>
 
