@@ -836,8 +836,8 @@ function handleLogin(event) {
           );
         } else {
           const redirectNote = getEmailRedirectUrl()
-            ? "Please check your email and click the confirmation link, then come back and sign in."
-            : "Please open the app from a hosted URL so the confirmation email link can redirect correctly.";
+            ? "Your account has been created. Please check your email and click the confirmation link, then sign in."
+            : "Your account has been created. Please open the app from a hosted URL so the confirmation email link can redirect correctly.";
           showFeedback(
             elements.authFeedback,
             `Your account was created. ${redirectNote}`,
@@ -2735,9 +2735,7 @@ function setButtonLoading(button, loading, label) {
 
 function setAuthMode(mode) {
   state.authMode = mode;
-  if (mode !== "signIn") {
-    state.isPasswordRecovery = false;
-  }
+  state.isPasswordRecovery = false;
   saveState();
   showFeedback(elements.authFeedback, "", "info");
   showFeedback(elements.passwordRecoveryFeedback, "", "info");
