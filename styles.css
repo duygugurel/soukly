@@ -567,7 +567,7 @@ h2 {
   aspect-ratio: 1;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(33, 26, 23, 0.1);
-  box-shadow: 0 4px 12px rgba(87, 46, 28, 0.08);
+  box-shadow: 0 4px 12px rgba(38, 53, 46, 0.08);
 }
 
 .image-thumb-wrap img {
@@ -1252,7 +1252,7 @@ button:disabled {
   border-radius: 26px;
   text-align: left;
   border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 6px 18px rgba(87, 46, 28, 0.08);
+  box-shadow: 0 6px 18px rgba(38, 53, 46, 0.08);
   transition: transform 200ms ease, box-shadow 200ms ease;
   cursor: pointer;
   background: var(--surface);
@@ -1260,7 +1260,7 @@ button:disabled {
 
 .cat-banner:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(87, 46, 28, 0.15);
+  box-shadow: 0 16px 36px rgba(38, 53, 46, 0.15);
 }
 
 .cat-banner-emoji {
@@ -1294,15 +1294,15 @@ button:disabled {
   line-height: 1.3;
 }
 
-/* Banner individual colours */
-.cat-banner--woman   { background: linear-gradient(135deg, #fff0f4 0%, #fde0e8 100%); color: #8b2252; }
-.cat-banner--man     { background: linear-gradient(135deg, #f0f4ff 0%, #dde6f7 100%); color: #1e3a6e; }
-.cat-banner--shoes   { background: linear-gradient(135deg, #f5f0ff 0%, #e5d8f9 100%); color: #4a1d96; }
-.cat-banner--home    { background: linear-gradient(135deg, #fff8ed 0%, #fdecc8 100%); color: #92400e; }
-.cat-banner--beauty  { background: linear-gradient(135deg, #fff4ee 0%, #fddccc 100%); color: #9a3412; }
-.cat-banner--kids    { background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%); color: #065f46; }
-.cat-banner--sports  { background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); color: #134e4a; }
-.cat-banner--accessories { background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); color: #78350f; }
+/* Banner individual colours — earthy palette */
+.cat-banner--woman   { background: linear-gradient(135deg, #F6F4EF 0%, #ede5d8 100%); color: #26352E; }
+.cat-banner--man     { background: linear-gradient(135deg, #edf0ec 0%, #dce5da 100%); color: #26352E; }
+.cat-banner--shoes   { background: linear-gradient(135deg, #f0ede8 0%, #e2d9cc 100%); color: #26352E; }
+.cat-banner--home    { background: linear-gradient(135deg, #f4f1ea 0%, #e8e0d0 100%); color: #26352E; }
+.cat-banner--beauty  { background: linear-gradient(135deg, #f5f0eb 0%, #ead9c8 100%); color: #26352E; }
+.cat-banner--kids    { background: linear-gradient(135deg, #edf2ec 0%, #d8e8d4 100%); color: #26352E; }
+.cat-banner--sports  { background: linear-gradient(135deg, #eaf0ed 0%, #cfdfd4 100%); color: #26352E; }
+.cat-banner--accessories { background: linear-gradient(135deg, #f5f0e8 0%, #e8dac4 100%); color: #26352E; }
 
 /* ── Category strip ── */
 .category-strip {
@@ -1325,8 +1325,8 @@ button:disabled {
   gap: 6px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(33,26,23,0.1);
+  background: rgba(237, 231, 220, 0.8);
+  border: 1px solid rgba(38, 53, 46, 0.1);
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--text);
@@ -1335,7 +1335,7 @@ button:disabled {
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
-.cat-chip:hover { background: rgba(38,53,46,0.08); border-color: rgba(38,53,46,0.25); }
+.cat-chip:hover { background: rgba(38,53,46,0.1); border-color: rgba(38,53,46,0.25); }
 
 .cat-chip.active-cat {
   background: var(--accent);
@@ -2585,7 +2585,7 @@ button:disabled {
     background: rgba(246, 239, 230, 0.94);
     backdrop-filter: blur(14px);
     border: 1px solid rgba(33, 26, 23, 0.08);
-    box-shadow: 0 14px 28px rgba(87, 46, 28, 0.08);
+    box-shadow: 0 14px 28px rgba(38, 53, 46, 0.08);
   }
 
   .search-row {
