@@ -2000,15 +2000,30 @@ function renderNotifications() {
 }
 
 function renderOfferHistory(product) {
-  if (!product.offers.length) {
-    elements.offerHistory.innerHTML = '<div class="empty-state compact">No offers yet for this item.</div>';
+  const isSeller = Boolean(state.currentUser && state.currentUser.profileId === product.sellerProfileId);
+  const currentProfileId = state.currentUser?.profileId || null;
+
+  // Giriş yapmamış kullanıcı hiçbir teklifi göremez
+  if (!currentProfileId) {
+    elements.offerHistory.innerHTML = "";
     return;
   }
 
-    const canModerate = Boolean(state.currentUser && state.currentUser.profileId === product.sellerProfileId);
-  elements.offerHistory.innerHTML = product.offers
+  // Satıcı tüm teklifleri görür, alıcı sadece kendi teklifini
+  const visibleOffers = isSeller
+    ? product.offers
+    : product.offers.filter((o) => o.buyerProfileId === currentProfileId);
+
+  if (!visibleOffers.length) {
+    elements.offerHistory.innerHTML = isSeller
+      ? '<div class="empty-state compact">No offers yet for this item.</div>'
+      : "";
+    return;
+  }
+
+  elements.offerHistory.innerHTML = visibleOffers
     .map((offer) => {
-      const actions = canModerate
+      const actions = isSeller
         ? `
             <div class="offer-decision-actions">
               <button type="button" class="ghost-button mini-button" data-offer-action="accepted" data-offer-id="${offer.id}">Accept</button>
@@ -2017,10 +2032,14 @@ function renderOfferHistory(product) {
           `
         : "";
 
+      const headerLabel = isSeller
+        ? `<strong>${escapeHtml(offer.buyer)}</strong>`
+        : `<strong>Your offer</strong>`;
+
       return `
         <article class="offer-item">
           <div class="offer-item-header">
-            <strong>${escapeHtml(offer.buyer)}</strong>
+            ${headerLabel}
             <span>${offer.amount} AED</span>
           </div>
           <div class="offer-status-row">
@@ -2032,18 +2051,18 @@ function renderOfferHistory(product) {
         </article>
       `;
     })
-      .join("");
+    .join("");
 
-  if (!canModerate) {
+  if (!isSeller) {
     return;
   }
 
   elements.offerHistory.querySelectorAll("[data-offer-id]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const offerId = button.getAttribute("data-offer-id") || "";
-        const status = button.getAttribute("data-offer-action") || "pending";
-        updateOfferStatus(product.id, offerId, status, button);
-      });
+    button.addEventListener("click", () => {
+      const offerId = button.getAttribute("data-offer-id") || "";
+      const status = button.getAttribute("data-offer-action") || "pending";
+      updateOfferStatus(product.id, offerId, status, button);
+    });
   });
 }
 
