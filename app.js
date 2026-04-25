@@ -831,7 +831,7 @@ function handleLogin(event) {
           state.currentUser = await getOrCreateProfileFromSession(signUp.data.session, name);
           showFeedback(
             elements.authFeedback,
-            "Account created and signed in. Welcome to Soukly!",
+            "Welcome to Soukly! You are now signed in.",
             "success"
           );
         } else {
@@ -840,7 +840,7 @@ function handleLogin(event) {
             : "Your account has been created. Please open the app from a hosted URL so the confirmation email link can redirect correctly.";
           showFeedback(
             elements.authFeedback,
-            `Your account was created. ${redirectNote}`,
+            redirectNote,
             "info"
           );
           return;
