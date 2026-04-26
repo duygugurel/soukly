@@ -1331,7 +1331,7 @@ function applyNearMeFilter(btn) {
 
 function startGeolocation(btn) {
   const originalLabel = btn.innerHTML;
-  btn.innerHTML = "📍 Locating…";
+  btn.innerHTML = '<svg class="bicon"><use href="#bicon-uae"/></svg> Locating…';
   btn.disabled = true;
 
   navigator.geolocation.getCurrentPosition(
@@ -2092,12 +2092,13 @@ function renderNotifications() {
     return;
   }
 
+  const brandIcon = (id) => `<svg class="bicon bicon--lg"><use href="#bicon-${id}"/></svg>`;
   const typeIcon = (type) => {
-    if (type === "new_message" || type === "message") return "💬";
-    if (type === "new_offer" || type === "offer_pending" || type === "offer") return "💰";
-    if (type === "offer_accepted") return "✅";
-    if (type === "offer_rejected") return "❌";
-    return "🔔";
+    if (type === "new_message" || type === "message") return brandIcon("comment");
+    if (type === "new_offer" || type === "offer_pending" || type === "offer") return brandIcon("offer");
+    if (type === "offer_accepted") return brandIcon("secure");
+    if (type === "offer_rejected") return brandIcon("offer");
+    return brandIcon("comment");
   };
 
   elements.notificationsList.innerHTML = notifications

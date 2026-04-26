@@ -43,6 +43,48 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- ═══ SouklyClub brand icon set (SVG sprite) ═══ -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="bicon-favorite" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 20.5s-7-4.4-7-10.2a4.2 4.2 0 0 1 7-3 4.2 4.2 0 0 1 7 3c0 5.8-7 10.2-7 10.2z"/>
+        </symbol>
+        <symbol id="bicon-comment" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 0 1-12.5 6.6L3 20.5l1.5-5A8 8 0 1 1 21 12z"/>
+        </symbol>
+        <symbol id="bicon-rate" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m12 3.5 2.7 5.6 6.2.9-4.5 4.3 1.1 6.1L12 17.6 6.5 20.4l1.1-6.1L3 9.99l6.2-.9z"/>
+        </symbol>
+        <symbol id="bicon-buy" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5.5 8.5h13l-1 11.2a1.6 1.6 0 0 1-1.6 1.5H8.1a1.6 1.6 0 0 1-1.6-1.5l-1-11.2zM9 8.5V6a3 3 0 0 1 6 0v2.5"/>
+        </symbol>
+        <symbol id="bicon-offer" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 13V4.5a1 1 0 0 1 1-1h8.5L21 12l-8.5 8.5L3 13z"/>
+          <circle cx="8" cy="8" r="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="bicon-shipping" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M2.5 7.5h11v9.5h-11zM13.5 11h3.5l3 3v3h-6.5"/>
+          <circle cx="6.5" cy="17.5" r="1.7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.5" cy="17.5" r="1.7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="bicon-hand" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 4.5h6v5H9zM3 15c1.6-1.5 3.4-2 5-2h6c1.8 0 3.6.8 5.5 2.5l-1.2 2-4.5-1.5-1.6 3.5-7 1.8L3 15z"/>
+        </symbol>
+        <symbol id="bicon-secure" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 3 4.5 5.8v6.4c0 4.4 3.3 8 7.5 9 4.2-1 7.5-4.6 7.5-9V5.8L12 3z"/>
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/>
+        </symbol>
+        <symbol id="bicon-community" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 20.5c0-3.6 3.1-6 7-6s7 2.4 7 6"/>
+        </symbol>
+        <symbol id="bicon-uae" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-7-7-12a7 7 0 0 1 14 0c0 5-7 12-7 12z"/>
+          <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </symbol>
+      </defs>
+    </svg>
+
     <div class="splash-screen" id="splashScreen">
       <div class="splash-content">
         <svg class="splash-icon" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" aria-label="SouklyClub icon">
@@ -97,22 +139,22 @@
               </button>
               <div class="profile-dropdown-menu" id="profileDropdownMenu" hidden>
                 <button class="dropdown-item" type="button" data-view-target="profile">
-                  <span class="dropdown-icon">👤</span>
+                  <span class="dropdown-icon"><svg class="bicon bicon--lg"><use href="#bicon-community"/></svg></span>
                   <span class="dropdown-label">My profile</span>
                 </button>
                 <button class="dropdown-item" type="button" id="dropdownFavorites">
-                  <span class="dropdown-icon">💚</span>
+                  <span class="dropdown-icon"><svg class="bicon bicon--lg"><use href="#bicon-favorite"/></svg></span>
                   <span class="dropdown-label">Favorites</span>
                   <span class="dropdown-count" id="favoritesCount" hidden>0</span>
                 </button>
                 <button class="dropdown-item" type="button" id="dropdownNotifications">
-                  <span class="dropdown-icon">🔔</span>
+                  <span class="dropdown-icon"><svg class="bicon bicon--lg"><use href="#bicon-comment"/></svg></span>
                   <span class="dropdown-label">Notifications</span>
                   <span class="dropdown-count dropdown-count--alert" id="notificationsCount" hidden>0</span>
                 </button>
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item dropdown-item--signout" type="button" id="signOutButton">
-                  <span class="dropdown-icon">🚪</span>
+                  <span class="dropdown-icon">⏻</span>
                   <span class="dropdown-label">Sign out</span>
                 </button>
               </div>
@@ -140,8 +182,8 @@
                 <button class="solid-button" data-view-target="sell">Start selling</button>
                 <div class="hero-shortcut-chips">
                   <button type="button" class="hero-shortcut-chip" data-shortcut="new-arrivals">✨ New arrivals</button>
-                  <button type="button" class="hero-shortcut-chip" data-shortcut="under-100">💚 Under 100 AED</button>
-                  <button type="button" class="hero-shortcut-chip" data-shortcut="near-me">📍 Near me</button>
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="under-100"><svg class="bicon"><use href="#bicon-offer"/></svg> Under 100 AED</button>
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="near-me"><svg class="bicon"><use href="#bicon-uae"/></svg> Near me</button>
                   <button type="button" class="hero-shortcut-chip" data-shortcut="trending">🔥 Trending</button>
                 </div>
               </div>
@@ -151,7 +193,7 @@
           <!-- Location permission modal -->
           <div class="auth-modal-overlay" id="locationModalOverlay" hidden>
             <div class="auth-modal card" style="max-width:400px;text-align:center;">
-              <div style="font-size:2.5rem;margin-bottom:12px;">📍</div>
+              <div style="font-size:2.5rem;margin-bottom:12px;color:var(--accent);"><svg class="bicon bicon--xl"><use href="#bicon-uae"/></svg></div>
               <h3 style="margin-bottom:8px;">Share your location?</h3>
               <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:24px;">
                 Soukly will use your location to show listings near you. Your location is never stored or shared.
@@ -297,11 +339,11 @@
                   <div class="filter-section">
                     <p class="filter-section-label">Seller rating</p>
                     <div class="filter-chip-wrap" id="ratingFilterChips">
-                      <button type="button" class="rating-chip" data-rating="5">⭐⭐⭐⭐⭐ 5</button>
-                      <button type="button" class="rating-chip" data-rating="4">⭐⭐⭐⭐ 4+</button>
-                      <button type="button" class="rating-chip" data-rating="3">⭐⭐⭐ 3+</button>
-                      <button type="button" class="rating-chip" data-rating="2">⭐⭐ 2+</button>
-                      <button type="button" class="rating-chip" data-rating="1">⭐ 1+</button>
+                      <button type="button" class="rating-chip" data-rating="5"><span class="rating-stars"><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg></span> 5</button>
+                      <button type="button" class="rating-chip" data-rating="4"><span class="rating-stars"><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg></span> 4+</button>
+                      <button type="button" class="rating-chip" data-rating="3"><span class="rating-stars"><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg></span> 3+</button>
+                      <button type="button" class="rating-chip" data-rating="2"><span class="rating-stars"><svg class="bicon"><use href="#bicon-rate"/></svg><svg class="bicon"><use href="#bicon-rate"/></svg></span> 2+</button>
+                      <button type="button" class="rating-chip" data-rating="1"><span class="rating-stars"><svg class="bicon"><use href="#bicon-rate"/></svg></span> 1+</button>
                     </div>
                   </div>
 

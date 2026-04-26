@@ -160,6 +160,21 @@ img {
   color: var(--muted);
 }
 
+/* ── SouklyClub brand icon set ── */
+.bicon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.18em;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.bicon--lg { width: 1.4em; height: 1.4em; vertical-align: -0.28em; }
+.bicon--xl { width: 1.8em; height: 1.8em; vertical-align: -0.38em; }
+.bicon--accent { color: var(--accent); }
+.bicon--sage   { color: var(--sage); }
+.bicon--tan    { color: var(--tan); }
+
 /* ── Profile dropdown ── */
 .profile-dropdown {
   position: relative;
@@ -1597,6 +1612,16 @@ button:disabled {
 .rating-chip.is-selected {
   background: var(--accent);
   border-color: var(--accent);
+  color: #fff;
+}
+
+.rating-stars {
+  display: inline-flex;
+  gap: 1px;
+  color: var(--accent);
+}
+
+.rating-chip.is-selected .rating-stars {
   color: #fff;
 }
 
