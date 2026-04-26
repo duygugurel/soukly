@@ -273,6 +273,9 @@ function loadState() {
         delivery: parsed.filters?.delivery || "",
         minPrice: parsed.filters?.minPrice || "",
         maxPrice: parsed.filters?.maxPrice || "",
+        colors: parsed.filters?.colors || [],
+        sizes: parsed.filters?.sizes || [],
+        rating: parsed.filters?.rating || 0,
       },
       selectedProductId: parsed.selectedProductId || null,
       draftImages: [],
@@ -299,6 +302,9 @@ function loadState() {
       delivery: "",
       minPrice: "",
       maxPrice: "",
+      colors: [],
+      sizes: [],
+      rating: 0,
     },
     selectedProductId: null,
     draftImages: [],
@@ -370,28 +376,80 @@ function bindEvents() {
     });
   }
 
-  // Color / size / rating chip selection state (UI only — multi-select toggle)
-  document.querySelectorAll(".color-chip, .size-chip, .rating-chip").forEach((chip) => {
+  // Colour chips — multi-select; updates state.filters.colors and re-renders
+  document.querySelectorAll(".color-chip").forEach((chip) => {
     chip.addEventListener("click", () => {
-      // Rating is single-select (radio-like); colour and size are multi-select
-      if (chip.classList.contains("rating-chip")) {
-        document.querySelectorAll(".rating-chip").forEach((c) => c.classList.remove("is-selected"));
-        chip.classList.add("is-selected");
+      const color = chip.dataset.color;
+      const idx = state.filters.colors.indexOf(color);
+      if (idx >= 0) {
+        state.filters.colors.splice(idx, 1);
+        chip.classList.remove("is-selected");
       } else {
-        chip.classList.toggle("is-selected");
+        state.filters.colors.push(color);
+        chip.classList.add("is-selected");
       }
+      saveState();
+      render();
     });
   });
 
-  // Reset filters button
+  // Size chips — multi-select
+  document.querySelectorAll(".size-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const size = chip.dataset.size;
+      const idx = state.filters.sizes.indexOf(size);
+      if (idx >= 0) {
+        state.filters.sizes.splice(idx, 1);
+        chip.classList.remove("is-selected");
+      } else {
+        state.filters.sizes.push(size);
+        chip.classList.add("is-selected");
+      }
+      saveState();
+      render();
+    });
+  });
+
+  // Rating chips — single-select (radio-like). Click again to clear.
+  document.querySelectorAll(".rating-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const rating = Number(chip.dataset.rating);
+      const wasSelected = chip.classList.contains("is-selected");
+      document.querySelectorAll(".rating-chip").forEach((c) => c.classList.remove("is-selected"));
+      if (wasSelected) {
+        state.filters.rating = 0;
+      } else {
+        chip.classList.add("is-selected");
+        state.filters.rating = rating;
+      }
+      saveState();
+      render();
+    });
+  });
+
+  // Restore selected color/size/rating chips on load (state from localStorage)
+  restoreFilterChipSelections();
+
+  // Reset filters button — clear ALL filters
   document.getElementById("resetFiltersBtn")?.addEventListener("click", () => {
     document.querySelectorAll(".color-chip.is-selected, .size-chip.is-selected, .rating-chip.is-selected")
       .forEach((c) => c.classList.remove("is-selected"));
+    state.filters.colors = [];
+    state.filters.sizes = [];
+    state.filters.rating = 0;
+    state.filters.minPrice = "";
+    state.filters.maxPrice = "";
+    state.filters.query = "";
+    state.filters.category = "";
+    state.filters.condition = "";
+    state.filters.delivery = "";
     const minP = document.getElementById("minPriceFilterInput");
     const maxP = document.getElementById("maxPriceFilterInput");
     if (minP) minP.value = "";
     if (maxP) maxP.value = "";
-    document.getElementById("clearAllFilters")?.click();
+    if (elements.brandFilterInput) elements.brandFilterInput.value = "";
+    saveState();
+    render();
   });
 
   // Hero shortcut chips
@@ -2564,6 +2622,70 @@ function handleChatSubmit(event) {
   })();
 }
 
+// Common Turkish ↔ English search synonyms. When the user types one of these
+// keywords, we also search for the translation so demo (English) listings show up.
+const QUERY_SYNONYMS = {
+  "çanta": "bag", "canta": "bag",
+  "ayakkabı": "shoe", "ayakkabi": "shoe",
+  "elbise": "dress",
+  "ceket": "jacket",
+  "pantolon": "pants",
+  "gömlek": "shirt", "gomlek": "shirt",
+  "tişört": "t-shirt", "tisort": "t-shirt",
+  "kazak": "sweater",
+  "saat": "watch",
+  "küpe": "earring", "kupe": "earring",
+  "yüzük": "ring", "yuzuk": "ring",
+  "kolye": "necklace",
+  "telefon": "phone",
+  "bilgisayar": "laptop",
+  "kulaklık": "headphone", "kulaklik": "headphone",
+  "parfüm": "perfume", "parfum": "perfume",
+  "ruj": "lipstick",
+  "rimel": "mascara",
+  "kahverengi": "brown",
+  "siyah": "black",
+  "beyaz": "white",
+  "mavi": "blue",
+  "yeşil": "green", "yesil": "green",
+  "kırmızı": "red", "kirmizi": "red",
+  "pembe": "pink",
+  "sarı": "yellow", "sari": "yellow",
+};
+
+// Synonyms for colour matching against free-text titles/descriptions/tags.
+// "brown" should match products described as "tan", "camel", "chocolate", etc.
+const COLOR_SYNONYMS = {
+  black:  ["black", "noir", "siyah"],
+  white:  ["white", "ivory", "cream", "off-white", "ecru", "beyaz"],
+  beige:  ["beige", "ecru", "cream", "nude", "sand", "bej"],
+  brown:  ["brown", "tan", "camel", "chocolate", "coffee", "khaki", "kahverengi"],
+  green:  ["green", "olive", "sage", "mint", "yeşil", "yesil"],
+  blue:   ["blue", "navy", "denim", "indigo", "teal", "mavi", "lacivert"],
+  red:    ["red", "burgundy", "wine", "maroon", "kırmızı", "kirmizi"],
+  pink:   ["pink", "rose", "blush", "fuchsia", "pembe"],
+  yellow: ["yellow", "mustard", "gold", "ochre", "sarı", "sari"],
+  grey:   ["grey", "gray", "silver", "charcoal", "gri"],
+  multi:  ["multi", "multicolor", "multicolour", "floral", "print", "patterned", "striped"],
+};
+
+// Smart-match a size token in free text. For text sizes (XS/S/M/L), require word boundaries.
+// For numeric (36-42) and "onesize", look as a standalone token.
+function productMatchesSize(product, size) {
+  const text = [product.title, product.description, ...(product.hashtags || [])]
+    .join(" ")
+    .toLowerCase();
+  if (size === "onesize") return /\bone[\s-]?size\b/.test(text);
+  if (/^\d+$/.test(size)) {
+    // numeric size: match either "size 38", "(38)", " 38 " or "uk 7 / eu 38"
+    const re = new RegExp(`(?:size\\s*|eu\\s*|uk\\s*|us\\s*|\\(|\\s)${size}(?:\\b|\\))`, "i");
+    return re.test(text);
+  }
+  // Letter size (XS/S/M/L/XL/XXL): require "size X" or "(X)" since lone letters cause false positives
+  const re = new RegExp(`(?:\\bsize\\s*${size}\\b|\\(${size}\\)|\\bsize:\\s*${size}\\b)`, "i");
+  return re.test(text);
+}
+
 function getFilteredProducts() {
   const query = state.filters.query.trim().toLowerCase();
   const activeCategory = state.filters.category.trim().toLowerCase();
@@ -2572,6 +2694,9 @@ function getFilteredProducts() {
   const activeDelivery = state.filters.delivery.trim().toLowerCase();
   const minPrice = Number(state.filters.minPrice);
   const maxPrice = Number(state.filters.maxPrice);
+  const activeColors = state.filters.colors || [];
+  const activeSizes = state.filters.sizes || [];
+  const minRating = Number(state.filters.rating || 0);
 
   return state.products.filter((product) => {
     const searchableText = [
@@ -2587,13 +2712,37 @@ function getFilteredProducts() {
       .join(" ")
       .toLowerCase();
 
-    const matchesQuery = !query || searchableText.includes(query);
+    // Match the query directly OR via Turkish/English synonym
+    const queryWords = query.split(/\s+/).filter(Boolean);
+    const matchesQuery = !query || queryWords.every((word) => {
+      if (searchableText.includes(word)) return true;
+      const synonym = QUERY_SYNONYMS[word];
+      return synonym && searchableText.includes(synonym);
+    });
     const matchesCategory = !activeCategory || product.category.toLowerCase() === activeCategory;
     const matchesLocation = !activeLocation || product.location.toLowerCase() === activeLocation;
     const matchesCondition = !activeCondition || product.condition.toLowerCase() === activeCondition;
     const matchesDelivery = !activeDelivery || product.delivery.toLowerCase() === activeDelivery;
     const matchesMinPrice = !state.filters.minPrice || product.price >= minPrice;
     const matchesMaxPrice = !state.filters.maxPrice || product.price <= maxPrice;
+
+    // Colour: any of the selected colours appears (with synonyms) in the product text
+    const matchesColor = activeColors.length === 0 || activeColors.some((color) => {
+      const synonyms = COLOR_SYNONYMS[color] || [color];
+      return synonyms.some((word) => searchableText.includes(word));
+    });
+
+    // Size: any of the selected sizes appears in the product text
+    const matchesSize = activeSizes.length === 0 || activeSizes.some((size) => productMatchesSize(product, size));
+
+    // Seller rating: average of buyer ratings on the product. Only filter if data exists.
+    const matchesRating = !minRating || (() => {
+      const ratings = product.ratings || [];
+      if (!ratings.length) return false; // no reviews yet → exclude when a rating filter is active
+      const avg = ratings.reduce((sum, r) => sum + (r.rating || 0), 0) / ratings.length;
+      return avg >= minRating;
+    })();
+
     return (
       matchesQuery &&
       matchesCategory &&
@@ -2601,9 +2750,41 @@ function getFilteredProducts() {
       matchesCondition &&
       matchesDelivery &&
       matchesMinPrice &&
-      matchesMaxPrice
+      matchesMaxPrice &&
+      matchesColor &&
+      matchesSize &&
+      matchesRating
     );
   });
+}
+
+// On startup, restore visual chip selections from saved state.filters
+function restoreFilterChipSelections() {
+  (state.filters.colors || []).forEach((color) => {
+    const chip = document.querySelector(`.color-chip[data-color="${color}"]`);
+    if (chip) chip.classList.add("is-selected");
+  });
+  (state.filters.sizes || []).forEach((size) => {
+    const chip = document.querySelector(`.size-chip[data-size="${size}"]`);
+    if (chip) chip.classList.add("is-selected");
+  });
+  if (state.filters.rating) {
+    const chip = document.querySelector(`.rating-chip[data-rating="${state.filters.rating}"]`);
+    if (chip) chip.classList.add("is-selected");
+  }
+  // If any "more filter" is active, auto-open the panel so the user sees what's filtered
+  const hasMoreFilters =
+    (state.filters.colors || []).length > 0 ||
+    (state.filters.sizes || []).length > 0 ||
+    state.filters.rating > 0 ||
+    state.filters.minPrice ||
+    state.filters.maxPrice;
+  if (hasMoreFilters) {
+    const panel = document.getElementById("moreFiltersPanel");
+    const toggle = document.getElementById("moreFiltersToggle");
+    if (panel) panel.hidden = false;
+    if (toggle) toggle.classList.add("is-open");
+  }
 }
 
 function getSelectedProduct() {
