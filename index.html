@@ -73,10 +73,6 @@
           </svg>
           <h1><span class="brand-soukly">Soukly</span><span class="brand-club">Club</span></h1>
         </div>
-        <nav class="header-nav">
-          <button class="nav-link active" data-view-target="home">Home</button>
-          <button class="nav-link" data-view-target="profile">My profile</button>
-        </nav>
         <div class="header-search-wrap">
           <span class="header-search-icon">🔍</span>
           <input
@@ -87,17 +83,43 @@
           />
         </div>
         <div class="header-actions">
-          <button class="ghost-button notifications-badge" data-view-target="notifications">
-            Notifications
-            <span id="notificationsCount">0</span>
-          </button>
-          <button class="ghost-button favorites-badge" data-view-target="profile">
-            Favorites
-            <span id="favoritesCount">0</span>
-          </button>
-          <button class="ghost-button" id="headerAuthButton">Sign up / Log in</button>
-          <button class="ghost-button" id="signOutButton" hidden>Sign out</button>
-          <button class="solid-button" data-view-target="sell">Add product</button>
+          <!-- Logged-out: only this button is visible -->
+          <button class="solid-button" id="headerAuthButton">Sign up / Log in</button>
+
+          <!-- Logged-in: nav with Home + My profile dropdown + Add product -->
+          <nav class="header-nav" id="headerNav" hidden>
+            <button class="nav-link active" data-view-target="home">Home</button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <button class="nav-link profile-dropdown-toggle" id="profileDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">
+                <span>My profile</span>
+                <span class="profile-alert-dot" id="profileAlertDot" hidden></span>
+                <span class="dropdown-caret">▾</span>
+              </button>
+              <div class="profile-dropdown-menu" id="profileDropdownMenu" hidden>
+                <button class="dropdown-item" type="button" data-view-target="profile">
+                  <span class="dropdown-icon">👤</span>
+                  <span class="dropdown-label">My profile</span>
+                </button>
+                <button class="dropdown-item" type="button" id="dropdownFavorites">
+                  <span class="dropdown-icon">💚</span>
+                  <span class="dropdown-label">Favorites</span>
+                  <span class="dropdown-count" id="favoritesCount" hidden>0</span>
+                </button>
+                <button class="dropdown-item" type="button" id="dropdownNotifications">
+                  <span class="dropdown-icon">🔔</span>
+                  <span class="dropdown-label">Notifications</span>
+                  <span class="dropdown-count dropdown-count--alert" id="notificationsCount" hidden>0</span>
+                </button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item dropdown-item--signout" type="button" id="signOutButton">
+                  <span class="dropdown-icon">🚪</span>
+                  <span class="dropdown-label">Sign out</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+
+          <button class="solid-button" data-view-target="sell" id="addProductBtn" hidden>Add product</button>
         </div>
       </header>
 

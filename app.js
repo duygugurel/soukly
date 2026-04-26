@@ -344,6 +344,7 @@ function bindEvents() {
   elements.profilePhotoInput.addEventListener("change", handleProfilePhotoChange);
   elements.headerAuthButton.addEventListener("click", handleHeaderAuthClick);
   elements.signOutButton.addEventListener("click", handleSignOut);
+  setupProfileDropdown();
   elements.brandFilterInput.addEventListener("input", handleQueryInput);
   elements.minPriceFilterInput.addEventListener("input", handlePriceInput);
   elements.maxPriceFilterInput.addEventListener("input", handlePriceInput);
@@ -1591,19 +1592,97 @@ function render() {
 
 function renderAuth() {
   renderAuthMode();
+
+  const headerNav = document.getElementById("headerNav");
+  const addProductBtn = document.getElementById("addProductBtn");
+  const favCount = state.favoriteIds.length;
+  const notifCount = getNotificationsCount();
+
   if (state.currentUser) {
     elements.authStatus.textContent = `Signed in as ${state.currentUser.name}`;
     elements.authHint.textContent = "You can now add products, save favorites, make offers, and message.";
-    elements.signOutButton.hidden = false;
     elements.headerAuthButton.hidden = true;
+    if (headerNav) headerNav.hidden = false;
+    if (addProductBtn) addProductBtn.hidden = false;
   } else {
     elements.authStatus.textContent = "Guest browsing";
     elements.authHint.textContent = "Sign in to publish products, save favorites, comment, and chat.";
-    elements.signOutButton.hidden = true;
     elements.headerAuthButton.hidden = false;
+    if (headerNav) headerNav.hidden = true;
+    if (addProductBtn) addProductBtn.hidden = true;
+    closeProfileDropdown();
   }
-  elements.favoritesCount.textContent = String(state.favoriteIds.length);
-  elements.notificationsCount.textContent = String(getNotificationsCount());
+
+  // Update badges — show only if count > 0
+  elements.favoritesCount.textContent = String(favCount);
+  elements.favoritesCount.hidden = favCount === 0;
+  elements.notificationsCount.textContent = String(notifCount);
+  elements.notificationsCount.hidden = notifCount === 0;
+
+  // Red alert dot on the My profile button when there's anything new
+  const alertDot = document.getElementById("profileAlertDot");
+  if (alertDot) alertDot.hidden = notifCount === 0;
+}
+
+function closeProfileDropdown() {
+  const toggle = document.getElementById("profileDropdownToggle");
+  const menu = document.getElementById("profileDropdownMenu");
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+  if (menu) menu.hidden = true;
+}
+
+function openProfileDropdown() {
+  const toggle = document.getElementById("profileDropdownToggle");
+  const menu = document.getElementById("profileDropdownMenu");
+  if (toggle) toggle.setAttribute("aria-expanded", "true");
+  if (menu) menu.hidden = false;
+}
+
+function setupProfileDropdown() {
+  const toggle = document.getElementById("profileDropdownToggle");
+  const menu = document.getElementById("profileDropdownMenu");
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (menu.hidden) openProfileDropdown();
+    else closeProfileDropdown();
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (menu.hidden) return;
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+      closeProfileDropdown();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeProfileDropdown();
+  });
+
+  // Wire up dropdown items that need custom navigation
+  document.getElementById("dropdownFavorites")?.addEventListener("click", () => {
+    closeProfileDropdown();
+    activateView("profile");
+    // Scroll to favorites section if it exists
+    setTimeout(() => {
+      const favSection = document.getElementById("favoritesSection") || document.querySelector("[data-section='favorites']");
+      if (favSection) favSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  });
+
+  document.getElementById("dropdownNotifications")?.addEventListener("click", () => {
+    closeProfileDropdown();
+    activateView("notifications");
+  });
+
+  // Profile and Sign-out items already have data-view-target / signOutButton wired up;
+  // we just need to close the dropdown after they're clicked.
+  menu.querySelectorAll(".dropdown-item").forEach((item) => {
+    item.addEventListener("click", () => closeProfileDropdown());
+  });
 }
 
 function renderFilters() {
