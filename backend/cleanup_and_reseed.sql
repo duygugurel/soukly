@@ -1,4 +1,4 @@
--- ============================================================
+﻿-- ============================================================
 -- Soukly – Clean Slate + Re-seed
 -- ============================================================
 -- Bu script önce tüm ürünleri siler (test ve eski veriler),
@@ -34,7 +34,7 @@ BEGIN
 
   -- 1. Zara Floral Midi Dress
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Zara Floral Midi Dress', 'Woman', 165, 'Like new', 'Courier', 'Dubai Marina',
+  VALUES (seller_id, 'Zara Floral Midi Dress', 'Woman', 165, 'Like new', 'Shipping', 'Dubai Marina',
     'Stunning midi dress in soft floral print, size S. Worn once to a garden brunch. Dry-cleaned and ready to ship. No stains or damage.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Zara');
@@ -44,7 +44,7 @@ BEGIN
 
   -- 2. Mango Linen Blazer
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Mango Linen Blazer – Camel', 'Woman', 220, 'New with tags', 'Courier', 'JLT',
+  VALUES (seller_id, 'Mango Linen Blazer – Camel', 'Woman', 220, 'New with tags', 'Shipping', 'JLT',
     'Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit. Perfect office or brunch look.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Mango');
@@ -54,7 +54,7 @@ BEGIN
 
   -- 3. Nike Air Max 270
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Nike Air Max 270 – White/Gold', 'Shoes&Bags', 280, 'Like new', 'Courier or hand delivery', 'JBR',
+  VALUES (seller_id, 'Nike Air Max 270 – White/Gold', 'Shoes&Bags', 280, 'Like new', 'Shipping or hand delivery', 'JBR',
     'Size UK 7 / EU 40.5. Worn only 2-3 times indoors. No visible wear on sole. Original box and extra laces included.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Nike');
@@ -64,7 +64,7 @@ BEGIN
 
   -- 4. Dyson Airwrap
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Dyson Airwrap Complete Styler', 'Beauty', 950, 'Like new', 'Courier', 'Downtown Dubai',
+  VALUES (seller_id, 'Dyson Airwrap Complete Styler', 'Beauty', 950, 'Like new', 'Shipping', 'Downtown Dubai',
     'All original attachments, storage case, and box included. Lightly used – selling because I upgraded to the newer Airwrap model. Works flawlessly.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Dyson');
@@ -74,7 +74,7 @@ BEGIN
 
   -- 5. Coach Tabby Bag
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Coach Tabby Shoulder Bag – Tan', 'Shoes&Bags', 620, 'Like new', 'Courier', 'DIFC',
+  VALUES (seller_id, 'Coach Tabby Shoulder Bag – Tan', 'Shoes&Bags', 620, 'Like new', 'Shipping', 'DIFC',
     'Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use. Comes with original dust bag and authenticity card.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Coach');
@@ -84,7 +84,7 @@ BEGIN
 
   -- 6. Sunday Riley Serum
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Sunday Riley Good Genes Serum', 'Beauty', 95, 'Sealed', 'Courier', 'Jumeirah',
+  VALUES (seller_id, 'Sunday Riley Good Genes Serum', 'Beauty', 95, 'Sealed', 'Shipping', 'Jumeirah',
     'Sealed and unopened. Expiry 2026. Received as a gift but already have one. Stored away from heat.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Sunday Riley');
@@ -94,7 +94,7 @@ BEGIN
 
   -- 7. Lululemon Leggings
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Lululemon Align Leggings – Black 25"', 'Sports', 175, 'Like new', 'Courier', 'Dubai Marina',
+  VALUES (seller_id, 'Lululemon Align Leggings – Black 25"', 'Sports', 175, 'Like new', 'Shipping', 'Dubai Marina',
     'Size 6. Washed once, no pilling, no fading. Buttery-soft feel still perfect. Great for yoga or pilates.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Lululemon');
@@ -104,7 +104,7 @@ BEGIN
 
   -- 8. Swarovski Earrings
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'Swarovski Crystal Stud Earrings', 'Accessories', 130, 'Like new', 'Courier', 'Palm Jumeirah',
+  VALUES (seller_id, 'Swarovski Crystal Stud Earrings', 'Accessories', 130, 'Like new', 'Shipping', 'Palm Jumeirah',
     'Classic round crystal studs in silver setting. Barely worn – only twice. Original gift box and pouch included. No tarnishing.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'Swarovski');
@@ -114,7 +114,7 @@ BEGIN
 
   -- 9. H&M Jacket
   INSERT INTO products (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
-  VALUES (seller_id, 'H&M Premium Quilted Jacket – Navy', 'Man', 110, 'Good', 'Courier or hand delivery', 'Al Barsha',
+  VALUES (seller_id, 'H&M Premium Quilted Jacket – Navy', 'Man', 110, 'Good', 'Shipping or hand delivery', 'Al Barsha',
     'Size L. Good condition, freshly washed. No stains or damage. Great for cooler UAE evenings or travel.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   VALUES (gen_random_uuid(), pid, 'H&M');

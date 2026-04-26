@@ -1,4 +1,4 @@
--- ============================================================
+﻿-- ============================================================
 -- Soukly – Demo Seed Data
 -- ============================================================
 -- Adds 10 realistic UAE pre-loved listings to your database.
@@ -34,7 +34,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Zara Floral Midi Dress', 'Woman', 165, 'Like new',
-     'Courier', 'Dubai Marina',
+     'Shipping', 'Dubai Marina',
      'Stunning midi dress in soft floral print, size S. Worn once to a garden brunch. Dry-cleaned and ready to ship. No stains or damage.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Zara');
@@ -45,7 +45,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Mango Linen Blazer – Camel', 'Woman', 220, 'New with tags',
-     'Courier', 'JLT',
+     'Shipping', 'JLT',
      'Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit. Perfect office or brunch look.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Mango');
@@ -56,7 +56,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Nike Air Max 270 – White/Gold', 'Shoes&Bags', 280, 'Like new',
-     'Courier or hand delivery', 'JBR',
+     'Shipping or hand delivery', 'JBR',
      'Size UK 7 / EU 40.5. Worn only 2-3 times indoors. Sole has no visible wear. Original box and extra laces included.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Nike');
@@ -67,7 +67,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Dyson Airwrap Complete Styler', 'Beauty', 950, 'Like new',
-     'Courier', 'Downtown Dubai',
+     'Shipping', 'Downtown Dubai',
      'All original attachments, storage case, and box included. Lightly used – selling because I upgraded to the newer Airwrap model. Works flawlessly.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Dyson');
@@ -78,7 +78,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Coach Tabby Shoulder Bag – Tan', 'Shoes&Bags', 620, 'Like new',
-     'Courier', 'DIFC',
+     'Shipping', 'DIFC',
      'Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use, no scratches or marks. Comes with original dust bag and authenticity card.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Coach');
@@ -89,7 +89,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Sunday Riley Good Genes Serum', 'Beauty', 95, 'Sealed',
-     'Courier', 'Jumeirah',
+     'Shipping', 'Jumeirah',
      'Sealed and unopened. Expiry 2026. Received as a gift but I already own one. Perfect condition, stored away from heat.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Sunday Riley');
@@ -100,7 +100,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Lululemon Align Leggings – Black 25"', 'Sports', 175, 'Like new',
-     'Courier', 'Dubai Marina',
+     'Shipping', 'Dubai Marina',
      'Size 6. Washed once, no pilling, no fading. The buttery-soft feel is still perfect. Great for yoga, pilates, or everyday wear.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Lululemon');
@@ -111,7 +111,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'Swarovski Crystal Stud Earrings', 'Accessories', 130, 'Like new',
-     'Courier', 'Palm Jumeirah',
+     'Shipping', 'Palm Jumeirah',
      'Classic round crystal studs in silver setting. Barely worn – only twice. Original gift box and pouch included. No tarnishing.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'Swarovski');
@@ -122,7 +122,7 @@ BEGIN
     (seller_profile_id, title, category, price_aed, condition, delivery, location, description)
   VALUES
     (seller_id, 'H&M Premium Quilted Jacket – Navy', 'Man', 110, 'Good',
-     'Courier or hand delivery', 'Al Barsha',
+     'Shipping or hand delivery', 'Al Barsha',
      'Size L. Good condition, freshly washed. No stains, tears, or damage. Great for cooler UAE evenings or travel. Selling because it no longer fits my style.')
   RETURNING id INTO pid;
   INSERT INTO product_brands   (product_id, brand_name) VALUES (pid, 'H&M');

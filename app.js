@@ -1,4 +1,4 @@
-const STORAGE_KEY = "souklyState";
+﻿const STORAGE_KEY = "souklyState";
 const SUPABASE_URL = "https://rfmculpnfzbjywrxjttn.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmbWN1bHBuZnpianl3cnhqdHRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjAzNDAsImV4cCI6MjA5MTkzNjM0MH0.uZR8jM7z7QxmtVw3lsnnuKW3JNnsz922cZURnk7htP8";
@@ -40,15 +40,15 @@ const makeDemoProduct = (overrides) => ({
 });
 
 const defaultProducts = [
-  makeDemoProduct({ title: "Zara Floral Midi Dress",           category: "Woman",      price: 165, condition: "Like new",      delivery: "Courier",                   location: "Dubai Marina",  description: "Stunning midi dress in soft floral print, size S. Worn once to a garden brunch. Dry-cleaned and ready to ship.",      brands: ["Zara"],        hashtags: ["#zara","#dress","#summerstyle"] }),
-  makeDemoProduct({ title: "Mango Linen Blazer – Camel",       category: "Woman",      price: 220, condition: "New with tags", delivery: "Courier",                   location: "JLT",           description: "Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit.",                   brands: ["Mango"],       hashtags: ["#mango","#blazer","#newtags"] }),
-  makeDemoProduct({ title: "Nike Air Max 270 – White/Gold",    category: "Shoes&Bags", price: 280, condition: "Like new",      delivery: "Courier or hand delivery",  location: "JBR",           description: "Size UK 7 / EU 40.5. Worn only 2-3 times indoors. No visible wear on sole. Original box included.",                   brands: ["Nike"],        hashtags: ["#nike","#airmax","#sneakers"] }),
-  makeDemoProduct({ title: "Dyson Airwrap Complete Styler",    category: "Beauty",     price: 950, condition: "Like new",      delivery: "Courier",                   location: "Downtown Dubai",description: "All original attachments, storage case, and box included. Lightly used – selling because I upgraded to the newer model.", brands: ["Dyson"],       hashtags: ["#dyson","#airwrap","#hairtools"] }),
-  makeDemoProduct({ title: "Coach Tabby Shoulder Bag – Tan",   category: "Shoes&Bags", price: 620, condition: "Like new",      delivery: "Courier",                   location: "DIFC",          description: "Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use. Comes with original dust bag.",                  brands: ["Coach"],       hashtags: ["#coach","#bag","#luxury"] }),
-  makeDemoProduct({ title: "Sunday Riley Good Genes Serum",    category: "Beauty",     price: 95,  condition: "Sealed",        delivery: "Courier",                   location: "Jumeirah",      description: "Sealed and unopened. Expiry 2026. Received as a gift but already have one. Stored away from heat.",                     brands: ["Sunday Riley"],hashtags: ["#sundayriley","#serum","#sealed"] }),
-  makeDemoProduct({ title: "Lululemon Align Leggings – Black", category: "Sports",     price: 175, condition: "Like new",      delivery: "Courier",                   location: "Dubai Marina",  description: "Size 6. Washed once, no pilling, no fading. Buttery-soft feel still perfect. Great for yoga or pilates.",              brands: ["Lululemon"],   hashtags: ["#lululemon","#yoga","#activewear"] }),
-  makeDemoProduct({ title: "Swarovski Crystal Stud Earrings",  category: "Accessories",price: 130, condition: "Like new",      delivery: "Courier",                   location: "Palm Jumeirah", description: "Classic round crystal studs in silver setting. Barely worn – only twice. Original gift box and pouch included.",         brands: ["Swarovski"],   hashtags: ["#swarovski","#earrings","#jewellery"] }),
-  makeDemoProduct({ title: "H&M Premium Quilted Jacket – Navy",category: "Man",        price: 110, condition: "Good",          delivery: "Courier or hand delivery",  location: "Al Barsha",     description: "Size L. Good condition, freshly washed. No stains or damage. Great for cooler UAE evenings or travel.",                 brands: ["H&M"],         hashtags: ["#hm","#jacket","#menswear"] }),
+  makeDemoProduct({ title: "Zara Floral Midi Dress",           category: "Woman",      price: 165, condition: "Like new",      delivery: "Shipping",                   location: "Dubai Marina",  description: "Stunning midi dress in soft floral print, size S. Worn once to a garden brunch. Dry-cleaned and ready to ship.",      brands: ["Zara"],        hashtags: ["#zara","#dress","#summerstyle"] }),
+  makeDemoProduct({ title: "Mango Linen Blazer – Camel",       category: "Woman",      price: 220, condition: "New with tags", delivery: "Shipping",                   location: "JLT",           description: "Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit.",                   brands: ["Mango"],       hashtags: ["#mango","#blazer","#newtags"] }),
+  makeDemoProduct({ title: "Nike Air Max 270 – White/Gold",    category: "Shoes&Bags", price: 280, condition: "Like new",      delivery: "Shipping or hand delivery",  location: "JBR",           description: "Size UK 7 / EU 40.5. Worn only 2-3 times indoors. No visible wear on sole. Original box included.",                   brands: ["Nike"],        hashtags: ["#nike","#airmax","#sneakers"] }),
+  makeDemoProduct({ title: "Dyson Airwrap Complete Styler",    category: "Beauty",     price: 950, condition: "Like new",      delivery: "Shipping",                   location: "Downtown Dubai",description: "All original attachments, storage case, and box included. Lightly used – selling because I upgraded to the newer model.", brands: ["Dyson"],       hashtags: ["#dyson","#airwrap","#hairtools"] }),
+  makeDemoProduct({ title: "Coach Tabby Shoulder Bag – Tan",   category: "Shoes&Bags", price: 620, condition: "Like new",      delivery: "Shipping",                   location: "DIFC",          description: "Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use. Comes with original dust bag.",                  brands: ["Coach"],       hashtags: ["#coach","#bag","#luxury"] }),
+  makeDemoProduct({ title: "Sunday Riley Good Genes Serum",    category: "Beauty",     price: 95,  condition: "Sealed",        delivery: "Shipping",                   location: "Jumeirah",      description: "Sealed and unopened. Expiry 2026. Received as a gift but already have one. Stored away from heat.",                     brands: ["Sunday Riley"],hashtags: ["#sundayriley","#serum","#sealed"] }),
+  makeDemoProduct({ title: "Lululemon Align Leggings – Black", category: "Sports",     price: 175, condition: "Like new",      delivery: "Shipping",                   location: "Dubai Marina",  description: "Size 6. Washed once, no pilling, no fading. Buttery-soft feel still perfect. Great for yoga or pilates.",              brands: ["Lululemon"],   hashtags: ["#lululemon","#yoga","#activewear"] }),
+  makeDemoProduct({ title: "Swarovski Crystal Stud Earrings",  category: "Accessories",price: 130, condition: "Like new",      delivery: "Shipping",                   location: "Palm Jumeirah", description: "Classic round crystal studs in silver setting. Barely worn – only twice. Original gift box and pouch included.",         brands: ["Swarovski"],   hashtags: ["#swarovski","#earrings","#jewellery"] }),
+  makeDemoProduct({ title: "H&M Premium Quilted Jacket – Navy",category: "Man",        price: 110, condition: "Good",          delivery: "Shipping or hand delivery",  location: "Al Barsha",     description: "Size L. Good condition, freshly washed. No stains or damage. Great for cooler UAE evenings or travel.",                 brands: ["H&M"],         hashtags: ["#hm","#jacket","#menswear"] }),
   makeDemoProduct({ title: "IKEA KALLAX 4×4 Shelf – White",   category: "Home",       price: 180, condition: "Good",          delivery: "Hand delivery",             location: "Business Bay",  description: "4×4 KALLAX unit in white. Slight scuff on one side, otherwise solid. Moving out – buyer must arrange transport.",       brands: ["IKEA"],        hashtags: ["#ikea","#homedecor","#kallax"] }),
 ];
 
@@ -662,7 +662,7 @@ async function loadDataFromSupabase() {
       category: product.category,
       price: Number(product.price_aed),
       condition: product.condition,
-      delivery: product.delivery,
+      delivery: normalizeDeliveryValue(product.delivery),
       location: product.location,
       description: product.description,
       sellerName: sellerProfile?.full_name || "Seller",
@@ -1927,7 +1927,10 @@ function renderDetail() {
   if (deliveryRowEl) {
     const methods = (product.delivery || "").split(/\s+or\s+/i).map((d) => d.trim()).filter(Boolean);
     deliveryRowEl.innerHTML = methods
-      .map((d) => `<span class="detail-delivery-pill">${escapeHtml(d)}</span>`)
+      .map((d) => {
+        const { label, iconId } = formatDeliveryMethod(d);
+        return `<span class="detail-delivery-pill"><svg class="bicon"><use href="#bicon-${iconId}"/></svg> ${escapeHtml(label)}</span>`;
+      })
       .join("");
   }
 
@@ -3098,4 +3101,20 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+// Normalize a raw delivery string (from DB or form) — replace "Courier" with "Shipping"
+function normalizeDeliveryValue(value) {
+  return String(value || "").replace(/\bcourier\b/gi, "Shipping");
+}
+
+// Map a delivery method to user-facing label + brand icon id
+// "Courier" is legacy data; we display it as "Shipping".
+function formatDeliveryMethod(value) {
+  const v = String(value || "").trim().toLowerCase();
+  if (v === "courier" || v === "shipping") return { label: "Shipping", iconId: "shipping" };
+  if (v === "hand delivery" || v === "pickup") return { label: "Hand delivery", iconId: "hand" };
+  // Fallback — title-case the first letter
+  const label = value.charAt(0).toUpperCase() + value.slice(1);
+  return { label, iconId: "shipping" };
 }

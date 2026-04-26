@@ -2097,12 +2097,20 @@ button:disabled {
 }
 
 .detail-delivery-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
-  color: var(--muted);
+  color: var(--accent);
   background: rgba(255, 255, 255, 0.72);
-  padding: 2px 10px;
+  padding: 4px 10px 4px 8px;
   border-radius: 999px;
-  border: 0.5px solid rgba(33, 26, 23, 0.1);
+  border: 0.5px solid rgba(38, 53, 46, 0.18);
+}
+
+.detail-delivery-pill .bicon {
+  width: 14px;
+  height: 14px;
 }
 
 /* Seller profile row */

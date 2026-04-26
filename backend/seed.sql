@@ -1,4 +1,4 @@
-insert into profiles (id, full_name, username, email, phone, city)
+﻿insert into profiles (id, full_name, username, email, phone, city)
 values
   ('11111111-1111-1111-1111-111111111111', 'Demo Seller', 'demoseller', 'seller@example.com', '+971500000001', 'Dubai'),
   ('22222222-2222-2222-2222-222222222222', 'Maya Noor', 'mayanoor', 'maya@example.com', '+971500000002', 'Dubai'),
@@ -16,7 +16,7 @@ values
     'Soft champagne tone, worn once for an event, size 38.',
     'Shoes',
     'Like new',
-    'Courier or hand delivery',
+    'Shipping or hand delivery',
     'Dubai Marina',
     120,
     null
@@ -28,7 +28,7 @@ values
     'Unopened box, expiry date valid, ideal for resale-safe beauty category.',
     'Beauty',
     'Sealed',
-    'Courier',
+    'Shipping',
     'JLT',
     65,
     null
