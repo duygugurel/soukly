@@ -1,0 +1,30 @@
+{
+  "provider": "supabase",
+  "project": {
+    "name": "second-chance-uae",
+    "region": "me-central-1",
+    "environment": "development"
+  },
+  "auth": {
+    "provider": "supabase-auth",
+    "email_sign_in": true,
+    "magic_link": false,
+    "phone_auth": true,
+    "redirect_url": "http://localhost:3000/auth/callback"
+  },
+  "database": {
+    "provider": "postgresql",
+    "schema_file": "backend/schema.sql",
+    "seed_file": "backend/seed.sql"
+  },
+  "messages": {
+    "persistence": "database",
+    "table": "messages",
+    "conversation_table": "conversations"
+  },
+  "notifications": {
+    "persistence": "database",
+    "table": "notifications",
+    "delivery_channels": ["in_app"]
+  }
+}

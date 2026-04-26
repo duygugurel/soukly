@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Copy-Item 'C:\\\\Users\\\\DuyguYilmaz\\\\Desktop\\\\dolap benzeri uygulama\\\\backend\\\\schema.sql' 'C:\\\\Users\\\\DuyguYilmaz\\\\Desktop\\\\schema_copy.sql'\")",
+      "Bash(powershell -Command ' *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "WebFetch(domain:dolap.com)",
+      "WebSearch",
+      "PowerShell(gh --version 2>&1)",
+      "PowerShell(winget install --id GitHub.cli --silent --accept-source-agreements --accept-package-agreements 2>&1)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh --version)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh auth status 2>&1)",
+      "PowerShell(Test-Path \"$env:APPDATA\\\\GitHub CLI\\\\hosts.yml\"; Test-Path \"$env:LOCALAPPDATA\\\\GitHub CLI\\\\hosts.yml\"; Test-Path \"$env:USERPROFILE\\\\.config\\\\gh\\\\hosts.yml\")",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh auth status; gh repo list --limit 30)",
+      "PowerShell(Get-ChildItem -Path \"$env:APPDATA\\\\GitHub CLI\", \"$env:LOCALAPPDATA\\\\GitHub CLI\", \"$env:USERPROFILE\\\\.config\\\\gh\" -ErrorAction SilentlyContinue -Recurse | Select-Object FullName)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); Get-Command gh -All | Select-Object Source)",
+      "PowerShell(where.exe gh 2>&1; Write-Output \"---\"; & \"$env:ProgramFiles\\\\GitHub CLI\\\\gh.exe\" auth status 2>&1)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); & \"$env:ProgramFiles\\\\GitHub CLI\\\\gh.exe\" auth status 2>&1)",
+      "PowerShell(& \"$env:ProgramFiles\\\\GitHub CLI\\\\gh.exe\" repo list --limit 30 2>&1)"
+    ]
+  }
+}

@@ -1,0 +1,739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SouklyClub – Buy. Sell. Love Again.</title>
+    <meta name="description" content="Buy and sell pre-loved fashion, beauty, home & more across Dubai and the UAE. Make offers, chat with sellers, and get it delivered." />
+
+    <!-- Open Graph (WhatsApp / LinkedIn / Twitter preview) -->
+    <meta property="og:title"       content="SouklyClub – Buy. Sell. Love Again." />
+    <meta property="og:description" content="Buy and sell pre-loved fashion, beauty, home & more across Dubai and the UAE." />
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://fabulous-cascaron-1bb996.netlify.app" />
+    <meta property="og:image"       content="https://fabulous-cascaron-1bb996.netlify.app/assets/soukly_og.png" />
+    <meta name="twitter:card"       content="summary_large_image" />
+
+    <!-- Favicon inline — SouklyClub bag icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='160' height='160' rx='36' fill='%23F6F4EF'/%3E%3Cpath d='M46 76 Q46 32 80 32 Q114 32 114 76' fill='none' stroke='%23CDB89A' stroke-width='12' stroke-linecap='round'/%3E%3Crect x='24' y='68' width='112' height='80' rx='18' fill='%2326352E'/%3E%3Ctext x='80' y='132' text-anchor='middle' font-family='Georgia%2Cserif' font-size='58' font-weight='700' font-style='italic' fill='white'%3ES%3C/text%3E%3Cpath d='M80 96 C80 96 64 85 64 76 C64 70 68.5 67 73 70 C75 71 80 74 80 74 C80 74 85 71 87 70 C91.5 67 96 70 96 76 C96 85 80 96 80 96 Z' fill='%23CDB89A'/%3E%3C/svg%3E" />
+
+    <!-- ═══ PWA — Web App Manifest ═══ -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Android Chrome: theme colour for address bar -->
+    <meta name="theme-color" content="#26352E" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- iOS Safari: fullscreen app behaviour -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SouklyClub" />
+    <link rel="apple-touch-icon" href="assets/soukly_icon.svg" />
+
+    <!-- Microsoft Tiles (Windows / Edge) -->
+    <meta name="msapplication-TileColor" content="#26352E" />
+    <meta name="msapplication-TileImage" content="assets/soukly_icon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="splash-screen" id="splashScreen">
+      <div class="splash-content">
+        <svg class="splash-icon" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" aria-label="SouklyClub icon">
+          <!-- Bag body: full rounded rectangle outline (tan) -->
+          <rect x="95" y="120" width="155" height="220" rx="14" fill="none" stroke="#CDB89A" stroke-width="9"/>
+          <!-- Bag handle arch (tan) -->
+          <path d="M132 120 Q132 56 172 56 Q212 56 212 120" fill="none" stroke="#CDB89A" stroke-width="9" stroke-linecap="round"/>
+          <!-- S letter on top (dark green, large serif) -->
+          <text x="172" y="335" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="305" font-weight="400" fill="#26352E">S</text>
+          <!-- Heart in bottom curve of S (sage) -->
+          <path d="M158 282 C158 282 138 268 138 256 C138 248 144 245 150 250 C153 252 158 256 158 256 C158 256 163 252 166 250 C172 245 178 248 178 256 C178 268 158 282 158 282 Z" fill="#A9B8A2"/>
+        </svg>
+        <div class="splash-brand">
+          <span class="splash-soukly">Soukly</span><span class="splash-club">Club</span>
+        </div>
+        <p class="splash-slogan">Buy. Sell. Love again.</p>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="header-brand">
+          <svg class="header-bag-icon" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="95" y="120" width="155" height="220" rx="14" fill="none" stroke="#CDB89A" stroke-width="9"/>
+            <path d="M132 120 Q132 56 172 56 Q212 56 212 120" fill="none" stroke="#CDB89A" stroke-width="9" stroke-linecap="round"/>
+            <text x="172" y="335" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="305" font-weight="400" fill="#26352E">S</text>
+            <path d="M158 282 C158 282 138 268 138 256 C138 248 144 245 150 250 C153 252 158 256 158 256 C158 256 163 252 166 250 C172 245 178 248 178 256 C178 268 158 282 158 282 Z" fill="#A9B8A2"/>
+          </svg>
+          <h1><span class="brand-soukly">Soukly</span><span class="brand-club">Club</span></h1>
+        </div>
+        <nav class="header-nav">
+          <button class="nav-link active" data-view-target="home">Home</button>
+          <button class="nav-link" data-view-target="messages">Messages</button>
+          <button class="nav-link" data-view-target="profile">My profile</button>
+        </nav>
+        <div class="header-actions">
+          <button class="ghost-button notifications-badge" data-view-target="notifications">
+            Notifications
+            <span id="notificationsCount">0</span>
+          </button>
+          <button class="ghost-button favorites-badge" data-view-target="profile">
+            Favorites
+            <span id="favoritesCount">0</span>
+          </button>
+          <button class="ghost-button" id="headerAuthButton">Sign up / Log in</button>
+          <button class="ghost-button" id="signOutButton" hidden>Sign out</button>
+          <button class="solid-button" data-view-target="sell">Add product</button>
+        </div>
+      </header>
+
+      <div hidden>
+        <strong id="authStatus"></strong>
+        <span id="authHint"></span>
+      </div>
+
+      <main class="layout">
+
+        <section class="main-column">
+          <!-- Hero banner -->
+          <section class="hero-banner card">
+            <div class="hero-banner-text">
+              <p class="eyebrow">Buy. Sell. Love again.</p>
+              <h2>Pre-loved finds,<br>delivered to your door.</h2>
+              <div class="hero-banner-actions">
+                <button class="solid-button" data-view-target="sell">Start selling</button>
+                <div class="hero-shortcut-chips">
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="new-arrivals">✨ New arrivals</button>
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="under-100">💚 Under 100 AED</button>
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="near-me">📍 Near me</button>
+                  <button type="button" class="hero-shortcut-chip" data-shortcut="trending">🔥 Trending</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Location permission modal -->
+          <div class="auth-modal-overlay" id="locationModalOverlay" hidden>
+            <div class="auth-modal card" style="max-width:400px;text-align:center;">
+              <div style="font-size:2.5rem;margin-bottom:12px;">📍</div>
+              <h3 style="margin-bottom:8px;">Share your location?</h3>
+              <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:24px;">
+                Soukly will use your location to show listings near you. Your location is never stored or shared.
+              </p>
+              <button class="solid-button full-width" id="locationAllowButton">Allow location access</button>
+              <button class="ghost-button full-width" id="locationDenyButton" style="margin-top:10px;">Not now</button>
+            </div>
+          </div>
+
+          <!-- Auth modal (hidden by default, shown when needed) -->
+          <div class="auth-modal-overlay" id="authModalOverlay" hidden>
+            <div class="auth-modal card">
+              <button class="auth-modal-close" id="authModalClose">✕</button>
+              <div class="auth-mode-switch">
+                <button type="button" class="auth-mode-button active" id="signInModeButton">Sign in</button>
+                <button type="button" class="auth-mode-button" id="signUpModeButton">Create account</button>
+              </div>
+              <h3 id="authCardTitle">Sign in</h3>
+              <form id="loginForm" class="stack-form">
+                <label>
+                  Full name
+                  <input type="text" name="name" placeholder="Ava Rahman" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" name="email" placeholder="ava@email.com" required />
+                </label>
+                <label>
+                  Password
+                  <input type="password" name="password" placeholder="Minimum 6 characters" required />
+                </label>
+                <button type="submit" class="solid-button full-width" id="authSubmitButton">Sign in</button>
+              </form>
+              <div class="auth-secondary-actions">
+                <button type="button" class="ghost-button" id="forgotPasswordButton">Forgot password</button>
+              </div>
+              <div class="form-feedback" id="authFeedback" hidden></div>
+              <p class="microcopy" id="authHelperText">
+                Sign in to publish products, save favourites, make offers, and chat.
+              </p>
+              <form id="passwordRecoveryForm" class="stack-form recovery-form" hidden>
+                <label class="full-span">
+                  New password
+                  <input type="password" name="newPassword" placeholder="Choose a new password" minlength="6" required />
+                </label>
+                <button type="submit" class="solid-button full-width" id="passwordRecoverySubmitButton">Update password</button>
+              </form>
+              <div class="form-feedback" id="passwordRecoveryFeedback" hidden></div>
+            </div>
+          </div>
+
+          <section class="view-stack">
+            <section class="view-panel active" id="view-home">
+
+              <!-- Category banners -->
+              <div class="category-banners">
+                <button class="cat-banner cat-banner--woman" data-cat-filter="Woman">
+                  <span class="cat-banner-emoji">👗</span>
+                  <div class="cat-banner-info">
+                    <strong>Woman</strong>
+                    <span>Fashion &amp; style</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--man" data-cat-filter="Man">
+                  <span class="cat-banner-emoji">👔</span>
+                  <div class="cat-banner-info">
+                    <strong>Man</strong>
+                    <span>Streetwear &amp; classics</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--shoes" data-cat-filter="Shoes&amp;Bags">
+                  <span class="cat-banner-emoji">👠</span>
+                  <div class="cat-banner-info">
+                    <strong>Shoes &amp; Bags</strong>
+                    <span>Step up your look</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--home" data-cat-filter="Home">
+                  <span class="cat-banner-emoji">🏠</span>
+                  <div class="cat-banner-info">
+                    <strong>Home</strong>
+                    <span>Décor &amp; living</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--beauty" data-cat-filter="Beauty">
+                  <span class="cat-banner-emoji">✨</span>
+                  <div class="cat-banner-info">
+                    <strong>Beauty</strong>
+                    <span>Skincare &amp; makeup</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--kids" data-cat-filter="Kids">
+                  <span class="cat-banner-emoji">👶</span>
+                  <div class="cat-banner-info">
+                    <strong>Kids</strong>
+                    <span>Toys &amp; clothing</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--sports" data-cat-filter="Sports">
+                  <span class="cat-banner-emoji">💪</span>
+                  <div class="cat-banner-info">
+                    <strong>Sports</strong>
+                    <span>Active &amp; outdoors</span>
+                  </div>
+                </button>
+                <button class="cat-banner cat-banner--accessories" data-cat-filter="Accessories">
+                  <span class="cat-banner-emoji">💎</span>
+                  <div class="cat-banner-info">
+                    <strong>Accessories</strong>
+                    <span>Jewellery &amp; more</span>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Category strip -->
+              <div class="category-strip card">
+                <button class="cat-chip active-cat" data-cat="">All</button>
+                <button class="cat-chip" data-cat="Woman">👗 Woman</button>
+                <button class="cat-chip" data-cat="Man">👔 Man</button>
+                <button class="cat-chip" data-cat="Shoes&Bags">👠 Shoes & Bags</button>
+                <button class="cat-chip" data-cat="Home">🏠 Home</button>
+                <button class="cat-chip" data-cat="Beauty">✨ Beauty</button>
+                <button class="cat-chip" data-cat="Kids">👶 Kids</button>
+                <button class="cat-chip" data-cat="Sports">💪 Sports</button>
+                <button class="cat-chip" data-cat="Accessories">💎 Accessories</button>
+                <button class="cat-chip" data-cat="Electronics">📱 Electronics</button>
+              </div>
+
+              <article class="card marketplace-card">
+                <div class="filter-panel">
+
+                  <!-- Search bar with icon -->
+                  <div class="filter-search-wrap">
+                    <span class="filter-search-icon">🔍</span>
+                    <input
+                      type="text"
+                      id="brandFilterInput"
+                      class="filter-search-input"
+                      placeholder="Search in Soukly..."
+                    />
+                  </div>
+
+                  <!-- CATEGORY -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Category</p>
+                    <div class="filter-chip-wrap" id="categoryFilterChips"></div>
+                  </div>
+
+                  <!-- CONDITION -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Condition</p>
+                    <div class="filter-chip-wrap" id="conditionFilterChips"></div>
+                  </div>
+
+                  <!-- PRICE RANGE -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Price range</p>
+                    <div class="filter-price-row">
+                      <div class="filter-price-box">
+                        <span class="filter-price-label">Min</span>
+                        <input type="number" id="minPriceFilterInput" min="0" placeholder="0" class="filter-price-input" />
+                        <span class="filter-price-unit">AED</span>
+                      </div>
+                      <span class="filter-price-sep">—</span>
+                      <div class="filter-price-box">
+                        <span class="filter-price-label">Max</span>
+                        <input type="number" id="maxPriceFilterInput" min="0" placeholder="500" class="filter-price-input" />
+                        <span class="filter-price-unit">AED</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- DELIVERY -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Delivery</p>
+                    <div class="filter-chip-wrap" id="deliveryFilterChips"></div>
+                  </div>
+
+                  <!-- Hidden groups kept for JS compatibility -->
+                  <div hidden>
+                    <div id="locationFilterChips"></div>
+                    <div id="brandFilterChips"></div>
+                    <div id="activeFilters">
+                      <div id="activeFilterRow"></div>
+                    </div>
+                    <button id="clearAllFilters">Clear</button>
+                  </div>
+
+                  <!-- Apply filters button -->
+                  <button type="button" class="filter-apply-btn" id="applyFiltersBtn">Apply filters</button>
+
+                </div>
+
+                <div class="listing-grid" id="homeListings"></div>
+              </article>
+            </section>
+
+            <section class="view-panel" id="view-sell">
+              <div class="panel-grid">
+                <article class="card form-card wide">
+                  <div class="section-heading">
+                    <p class="eyebrow">Seller tools</p>
+                    <h3 id="productFormTitle">Add a product</h3>
+                  </div>
+                  <form id="productForm" class="stack-form" enctype="multipart/form-data">
+                    <label>
+                      Product title
+                      <input type="text" name="title" placeholder="Zara satin heels" required />
+                    </label>
+                    <label>
+                      Category
+                      <select name="category" required>
+                        <option value="">Select a category</option>
+                        <option>Woman</option>
+                        <option>Man</option>
+                        <option>Home</option>
+                        <option>Kids</option>
+                        <option>Beauty</option>
+                        <option>Sports</option>
+                        <option>Shoes&Bags</option>
+                        <option>Electronics</option>
+                        <option>Accessories</option>
+                      </select>
+                    </label>
+                    <label>
+                      Price in AED
+                      <input type="number" min="1" name="price" placeholder="120" required />
+                    </label>
+                    <label>
+                      Condition
+                      <select name="condition" required>
+                        <option value="">Select condition</option>
+                        <option>New with tags</option>
+                        <option>Like new</option>
+                        <option>Good</option>
+                        <option>Used</option>
+                        <option>Sealed</option>
+                      </select>
+                    </label>
+                    <label>
+                      Delivery
+                      <select name="delivery" required>
+                        <option value="">Select delivery option</option>
+                        <option>Courier</option>
+                        <option>Hand delivery</option>
+                        <option>Courier or hand delivery</option>
+                      </select>
+                    </label>
+                    <label>
+                      Location
+                      <input type="text" name="location" placeholder="Dubai Marina" required />
+                    </label>
+                    <div class="full-span brand-field">
+                      <div class="brand-field-header">
+                        <label for="manualBrand">Brand</label>
+                      </div>
+                      <input
+                        id="manualBrand"
+                        type="text"
+                        name="manualBrand"
+                        placeholder="Type a brand manually, for example Zara or Nike"
+                      />
+                    </div>
+                    <label class="full-span upload-field">
+                      Product photos
+                      <input type="file" name="image" id="productImageInput" accept="image/*" multiple />
+                      <span class="microcopy">Up to 4 photos. First photo is the main card image.</span>
+                      <span class="upload-file-name" id="imageFileName">No photos selected yet.</span>
+                    </label>
+                    <div class="image-preview-grid full-span" id="imagePreviewGrid"></div>
+                    <label class="full-span">
+                      Hashtags
+                      <input
+                        type="text"
+                        name="hashtags"
+                        placeholder="#zara #heels #dubaimarina"
+                      />
+                      <span class="microcopy">
+                        Add tags with `#` like Instagram so buyers can understand the style fast.
+                      </span>
+                    </label>
+                    <label class="full-span">
+                      Product description
+                      <textarea
+                        name="description"
+                        rows="4"
+                        placeholder="Describe the condition, size, brand, and pickup details."
+                        required
+                      ></textarea>
+                    </label>
+                    <button type="submit" class="solid-button full-width" id="productSubmitButton">Publish product</button>
+                  </form>
+                  <div class="form-feedback" id="productFeedback" hidden></div>
+                </article>
+
+                <article class="card side-note">
+                  <div class="section-heading">
+                    <p class="eyebrow">Seller guidance</p>
+                    <h3>Strong listings sell faster</h3>
+                  </div>
+                  <ul class="feature-list">
+                    <li>Use a clean first photo</li>
+                    <li>Mention district or pickup area</li>
+                    <li>State exact condition honestly</li>
+                    <li>Keep beauty products sealed and valid only</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+
+            <section class="view-panel" id="view-profile">
+              <article class="card profile-card-new">
+
+                <!-- Banner + floating avatar -->
+                <div class="profile-banner">
+                  <div class="profile-avatar-circle" id="profileAvatar">DG</div>
+                </div>
+
+                <!-- Name row -->
+                <div class="profile-name-row">
+                  <div>
+                    <h3 id="profileName" class="profile-name-heading">Guest Seller</h3>
+                    <p class="profile-handle" id="profileHandle">@soukly · Dubai, UAE</p>
+                  </div>
+                  <button type="button" class="profile-follow-btn" id="profileFollowBtn">Follow</button>
+                </div>
+
+                <!-- Stats row: Sales · Followers · Rating -->
+                <div class="profile-stats-new">
+                  <div class="profile-stat-box">
+                    <strong id="statListings">0</strong>
+                    <span>Sales</span>
+                  </div>
+                  <div class="profile-stat-box">
+                    <strong id="statFollowers">0</strong>
+                    <span>Followers</span>
+                  </div>
+                  <div class="profile-stat-box">
+                    <strong id="statRating">—</strong>
+                    <span>★ Rating</span>
+                  </div>
+                </div>
+
+                <!-- Bio -->
+                <p class="profile-bio" id="profileBio">Sign in to create your seller identity and start listing products.</p>
+
+                <!-- Photo upload (owners only) -->
+                <label class="profile-photo-upload" id="profilePhotoUpload" hidden>
+                  Update profile photo
+                  <input type="file" id="profilePhotoInput" accept="image/*" />
+                </label>
+                <div class="form-feedback" id="profileFeedback" hidden></div>
+
+                <!-- Tab bar -->
+                <div class="profile-tabs">
+                  <button type="button" class="profile-tab active-tab" data-profile-tab="listings">Listings</button>
+                  <button type="button" class="profile-tab" data-profile-tab="saved">Saved</button>
+                </div>
+
+                <!-- Listings tab content -->
+                <div id="profileTabListings">
+                  <div class="listing-grid profile-listing-grid" id="profileListings"></div>
+                </div>
+
+                <!-- Saved tab content (hidden by default) -->
+                <div id="profileTabSaved" hidden>
+                  <div class="listing-grid profile-listing-grid" id="favoriteListings"></div>
+                </div>
+
+                <!-- Hidden compat: statDelivery still set by JS -->
+                <span id="statDelivery" hidden></span>
+
+              </article>
+            </section>
+
+            <section class="view-panel" id="view-detail">
+              <article class="card detail-card" id="detailCard">
+                <div class="form-feedback" id="detailFeedback" hidden></div>
+                <button type="button" class="ghost-button detail-back-button" id="backToHomeButton">
+                  Back to listings
+                </button>
+                <div class="detail-layout">
+                  <div class="detail-image-wrap">
+                    <img id="detailImage" alt="Selected product" />
+                  </div>
+                  <div class="detail-copy">
+
+                    <!-- 1. Category + condition (grey) + brand (orange) pills -->
+                    <div class="detail-tags" id="detailTags"></div>
+
+                    <!-- 2. Title + Price on same row -->
+                    <div class="detail-title-price-row">
+                      <h3 id="detailTitle">Product title</h3>
+                      <div class="detail-price" id="detailPrice">0 AED</div>
+                    </div>
+
+                    <!-- 3. Description -->
+                    <p class="detail-description" id="detailDescription"></p>
+
+                    <hr class="detail-divider" />
+
+                    <!-- 4. Delivery row -->
+                    <div class="detail-row">
+                      <span class="detail-row-label">Delivery</span>
+                      <div class="detail-delivery-pills" id="detailDeliveryRow"></div>
+                    </div>
+
+                    <!-- 5. Location row -->
+                    <div class="detail-row" style="margin-bottom:0;">
+                      <span class="detail-row-label">Location</span>
+                      <strong id="detailLocation" class="detail-row-value"></strong>
+                    </div>
+
+                    <hr class="detail-divider" />
+
+                    <!-- 6. Seller profile row -->
+                    <div class="detail-seller-row">
+                      <div class="detail-seller-avatar" id="detailSellerAvatar">—</div>
+                      <div class="detail-seller-info">
+                        <strong id="detailSeller" class="detail-seller-name"></strong>
+                        <div class="detail-seller-meta">
+                          <span class="detail-seller-stars">★★★★★</span>
+                          <span class="detail-seller-rating-text" id="detailSellerRatingText"></span>
+                        </div>
+                      </div>
+                      <button type="button" class="detail-view-profile-btn" id="detailViewProfile">View profile</button>
+                    </div>
+
+                    <hr class="detail-divider" />
+
+                    <!-- 7. Hashtags (hidden when none) -->
+                    <div id="detailHashtagsSection">
+                      <p class="detail-hashtags-label">Tags</p>
+                      <div class="detail-hashtags" id="detailHashtags"></div>
+                    </div>
+                    <hr class="detail-divider" id="detailHashtagsDivider" />
+
+                    <!-- 8. Primary action buttons: 2-col grid -->
+                    <div class="detail-action-grid" id="detailActionGrid">
+                      <button type="button" class="detail-offer-btn" id="toggleOfferButton">Make an offer</button>
+                      <button type="button" class="detail-message-btn" id="openMessageButton">Message seller</button>
+                    </div>
+
+                    <!-- 9. Secondary actions -->
+                    <div class="detail-secondary-actions">
+                      <button type="button" class="ghost-button" id="detailFavoriteButton">Save item</button>
+                      <button type="button" class="ghost-button" id="editProductButton" hidden>Edit product</button>
+                      <button type="button" class="ghost-button" id="deleteProductButton" hidden>Delete product</button>
+                    </div>
+
+                    <!-- Hidden compat elements (populated by JS, not shown) -->
+                    <span id="detailCondition" hidden></span>
+                    <span id="detailDelivery" hidden></span>
+
+                    <!-- Offer panel -->
+                    <div class="offer-panel" id="offerPanel" hidden>
+                      <form id="offerForm" class="offer-form">
+                        <label>
+                          Your offer in AED
+                          <input type="number" name="amount" min="1" placeholder="95" required />
+                        </label>
+                        <label>
+                          Note to seller
+                          <textarea
+                            name="message"
+                            rows="3"
+                            placeholder="Can collect this week in Marina."
+                          ></textarea>
+                        </label>
+                        <button type="submit" class="solid-button">Send offer</button>
+                      </form>
+                      <div class="offer-history" id="offerHistory"></div>
+                    </div>
+
+                    <!-- Rating panel -->
+                    <div class="rating-panel" id="ratingPanel">
+                      <div class="section-heading">
+                        <p class="eyebrow">Buyer review</p>
+                        <h3>Rating</h3>
+                      </div>
+                      <div class="rating-summary" id="ratingSummary"></div>
+                      <div class="rating-form-wrap" id="ratingFormWrap" hidden>
+                        <form id="ratingForm" class="rating-form">
+                          <div class="star-input-row" id="starInput" role="group" aria-label="Rate this product">
+                            <button type="button" class="star-btn" data-value="1">&#9733;</button>
+                            <button type="button" class="star-btn" data-value="2">&#9733;</button>
+                            <button type="button" class="star-btn" data-value="3">&#9733;</button>
+                            <button type="button" class="star-btn" data-value="4">&#9733;</button>
+                            <button type="button" class="star-btn" data-value="5">&#9733;</button>
+                          </div>
+                          <input type="hidden" name="ratingValue" id="ratingValueInput" value="0" />
+                          <label>
+                            Review (optional)
+                            <textarea name="review" rows="2" placeholder="Share your experience with this product."></textarea>
+                          </label>
+                          <button type="submit" class="solid-button" id="ratingSubmitButton">Submit rating</button>
+                        </form>
+                      </div>
+                      <div class="form-feedback" id="ratingFeedback" hidden></div>
+                    </div>
+
+                    <!-- Comments panel -->
+                    <div class="comments-panel">
+                      <div class="section-heading">
+                        <p class="eyebrow">Community</p>
+                        <h3>Comments</h3>
+                      </div>
+                      <form id="commentForm" class="comment-form">
+                        <label>
+                          Add a comment
+                          <textarea
+                            name="comment"
+                            rows="3"
+                            placeholder="Ask about size, pickup timing, or product details."
+                            required
+                          ></textarea>
+                        </label>
+                        <button type="submit" class="solid-button">Post comment</button>
+                      </form>
+                      <div class="comment-list" id="commentList"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <section class="view-panel" id="view-notifications">
+              <article class="card notifications-card">
+                <div class="section-heading">
+                  <p class="eyebrow">Activity</p>
+                  <h3>Notifications</h3>
+                </div>
+                <div id="notificationsList"></div>
+              </article>
+            </section>
+
+            <section class="view-panel" id="view-messages">
+              <article class="card messages-card">
+                <div class="section-heading">
+                  <p class="eyebrow">Conversations</p>
+                  <h3>Messages</h3>
+                </div>
+                <div class="messages-layout">
+                  <div class="conversation-list" id="conversationList"></div>
+                  <div class="chat-panel">
+                    <div class="chat-thread-header" id="chatThreadHeader">Select a conversation</div>
+                    <div class="chat-thread" id="chatThread"></div>
+                    <form id="chatForm" class="chat-form">
+                      <label>
+                        Message
+                        <textarea
+                          name="message"
+                          rows="3"
+                          placeholder="Write a message about the product, pickup, or offer."
+                          required
+                        ></textarea>
+                      </label>
+                      <button type="submit" class="solid-button">Send message</button>
+                    </form>
+                  </div>
+                </div>
+              </article>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+    <nav class="mobile-bottom-nav">
+      <button class="mobile-nav-link active" data-view-target="home">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-5.5h-5V21H5a1 1 0 0 1-1-1z" />
+        </svg>
+        <span>Home</span>
+      </button>
+      <button class="mobile-nav-link" data-view-target="sell">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span>Sell</span>
+      </button>
+      <button class="mobile-nav-link" data-view-target="messages">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-4 3v-3H7.5A2.5 2.5 0 0 1 5 13.5z" />
+        </svg>
+        <span>Messages</span>
+      </button>
+      <button class="mobile-nav-link" data-view-target="profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 12Zm-6 7a6 6 0 0 1 12 0" />
+        </svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+
+    <!-- PWA: register service worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {
+            // SW registration failed silently — app still works normally
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
