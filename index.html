@@ -78,6 +78,15 @@
           <button class="nav-link" data-view-target="messages">Messages</button>
           <button class="nav-link" data-view-target="profile">My profile</button>
         </nav>
+        <div class="header-search-wrap">
+          <span class="header-search-icon">🔍</span>
+          <input
+            type="text"
+            id="brandFilterInput"
+            class="header-search-input"
+            placeholder="Search in SouklyClub..."
+          />
+        </div>
         <div class="header-actions">
           <button class="ghost-button notifications-badge" data-view-target="notifications">
             Notifications
@@ -188,33 +197,11 @@
                 <button class="cat-chip" data-cat="Sports">💪 Sports</button>
                 <button class="cat-chip" data-cat="Accessories">💎 Accessories</button>
                 <button class="cat-chip" data-cat="Electronics">📱 Electronics</button>
+                <button class="cat-chip cat-chip--more" id="moreFiltersToggle" type="button">⚙️ More filters</button>
               </div>
 
               <article class="card marketplace-card">
-                <div class="filter-panel">
-
-                  <!-- Search bar with icon -->
-                  <div class="filter-search-wrap">
-                    <span class="filter-search-icon">🔍</span>
-                    <input
-                      type="text"
-                      id="brandFilterInput"
-                      class="filter-search-input"
-                      placeholder="Search in Soukly..."
-                    />
-                  </div>
-
-                  <!-- CATEGORY -->
-                  <div class="filter-section">
-                    <p class="filter-section-label">Category</p>
-                    <div class="filter-chip-wrap" id="categoryFilterChips"></div>
-                  </div>
-
-                  <!-- CONDITION -->
-                  <div class="filter-section">
-                    <p class="filter-section-label">Condition</p>
-                    <div class="filter-chip-wrap" id="conditionFilterChips"></div>
-                  </div>
+                <div class="filter-panel filter-panel--collapsible" id="moreFiltersPanel" hidden>
 
                   <!-- PRICE RANGE -->
                   <div class="filter-section">
@@ -234,14 +221,72 @@
                     </div>
                   </div>
 
+                  <!-- CONDITION -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Condition</p>
+                    <div class="filter-chip-wrap" id="conditionFilterChips"></div>
+                  </div>
+
+                  <!-- COLOR -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Colour</p>
+                    <div class="filter-chip-wrap filter-color-wrap" id="colorFilterChips">
+                      <button type="button" class="color-chip" data-color="black"><span class="color-dot" style="background:#1a1a1a"></span>Black</button>
+                      <button type="button" class="color-chip" data-color="white"><span class="color-dot" style="background:#fff;border:1px solid #ccc"></span>White</button>
+                      <button type="button" class="color-chip" data-color="beige"><span class="color-dot" style="background:#cdb89a"></span>Beige</button>
+                      <button type="button" class="color-chip" data-color="brown"><span class="color-dot" style="background:#6b4f3a"></span>Brown</button>
+                      <button type="button" class="color-chip" data-color="green"><span class="color-dot" style="background:#a9b8a2"></span>Green</button>
+                      <button type="button" class="color-chip" data-color="blue"><span class="color-dot" style="background:#5a7a9a"></span>Blue</button>
+                      <button type="button" class="color-chip" data-color="red"><span class="color-dot" style="background:#a04545"></span>Red</button>
+                      <button type="button" class="color-chip" data-color="pink"><span class="color-dot" style="background:#d8a8b8"></span>Pink</button>
+                      <button type="button" class="color-chip" data-color="yellow"><span class="color-dot" style="background:#e6c870"></span>Yellow</button>
+                      <button type="button" class="color-chip" data-color="grey"><span class="color-dot" style="background:#8a8a8a"></span>Grey</button>
+                      <button type="button" class="color-chip" data-color="multi"><span class="color-dot" style="background:linear-gradient(135deg,#d8a8b8 0%,#e6c870 50%,#5a7a9a 100%)"></span>Multi</button>
+                    </div>
+                  </div>
+
+                  <!-- SIZE -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Size</p>
+                    <div class="filter-chip-wrap" id="sizeFilterChips">
+                      <button type="button" class="size-chip" data-size="XS">XS</button>
+                      <button type="button" class="size-chip" data-size="S">S</button>
+                      <button type="button" class="size-chip" data-size="M">M</button>
+                      <button type="button" class="size-chip" data-size="L">L</button>
+                      <button type="button" class="size-chip" data-size="XL">XL</button>
+                      <button type="button" class="size-chip" data-size="XXL">XXL</button>
+                      <button type="button" class="size-chip" data-size="36">36</button>
+                      <button type="button" class="size-chip" data-size="37">37</button>
+                      <button type="button" class="size-chip" data-size="38">38</button>
+                      <button type="button" class="size-chip" data-size="39">39</button>
+                      <button type="button" class="size-chip" data-size="40">40</button>
+                      <button type="button" class="size-chip" data-size="41">41</button>
+                      <button type="button" class="size-chip" data-size="42">42</button>
+                      <button type="button" class="size-chip" data-size="onesize">One size</button>
+                    </div>
+                  </div>
+
                   <!-- DELIVERY -->
                   <div class="filter-section">
-                    <p class="filter-section-label">Delivery</p>
+                    <p class="filter-section-label">Delivery options</p>
                     <div class="filter-chip-wrap" id="deliveryFilterChips"></div>
+                  </div>
+
+                  <!-- BUYER REVIEW RATING -->
+                  <div class="filter-section">
+                    <p class="filter-section-label">Seller rating</p>
+                    <div class="filter-chip-wrap" id="ratingFilterChips">
+                      <button type="button" class="rating-chip" data-rating="5">⭐⭐⭐⭐⭐ 5</button>
+                      <button type="button" class="rating-chip" data-rating="4">⭐⭐⭐⭐ 4+</button>
+                      <button type="button" class="rating-chip" data-rating="3">⭐⭐⭐ 3+</button>
+                      <button type="button" class="rating-chip" data-rating="2">⭐⭐ 2+</button>
+                      <button type="button" class="rating-chip" data-rating="1">⭐ 1+</button>
+                    </div>
                   </div>
 
                   <!-- Hidden groups kept for JS compatibility -->
                   <div hidden>
+                    <div id="categoryFilterChips"></div>
                     <div id="locationFilterChips"></div>
                     <div id="brandFilterChips"></div>
                     <div id="activeFilters">
@@ -251,7 +296,10 @@
                   </div>
 
                   <!-- Apply filters button -->
-                  <button type="button" class="filter-apply-btn" id="applyFiltersBtn">Apply filters</button>
+                  <div class="filter-actions-row">
+                    <button type="button" class="ghost-button" id="resetFiltersBtn">Reset</button>
+                    <button type="button" class="filter-apply-btn" id="applyFiltersBtn">Apply filters</button>
+                  </div>
 
                 </div>
 

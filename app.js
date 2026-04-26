@@ -355,6 +355,44 @@ function bindEvents() {
     if (listingsEl) listingsEl.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
+  // "More filters" toggle — show/hide collapsible filter panel
+  const moreFiltersToggle = document.getElementById("moreFiltersToggle");
+  const moreFiltersPanel = document.getElementById("moreFiltersPanel");
+  if (moreFiltersToggle && moreFiltersPanel) {
+    moreFiltersToggle.addEventListener("click", () => {
+      const isOpen = !moreFiltersPanel.hidden;
+      moreFiltersPanel.hidden = isOpen;
+      moreFiltersToggle.classList.toggle("is-open", !isOpen);
+      if (!isOpen) {
+        moreFiltersPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  // Color / size / rating chip selection state (UI only — multi-select toggle)
+  document.querySelectorAll(".color-chip, .size-chip, .rating-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      // Rating is single-select (radio-like); colour and size are multi-select
+      if (chip.classList.contains("rating-chip")) {
+        document.querySelectorAll(".rating-chip").forEach((c) => c.classList.remove("is-selected"));
+        chip.classList.add("is-selected");
+      } else {
+        chip.classList.toggle("is-selected");
+      }
+    });
+  });
+
+  // Reset filters button
+  document.getElementById("resetFiltersBtn")?.addEventListener("click", () => {
+    document.querySelectorAll(".color-chip.is-selected, .size-chip.is-selected, .rating-chip.is-selected")
+      .forEach((c) => c.classList.remove("is-selected"));
+    const minP = document.getElementById("minPriceFilterInput");
+    const maxP = document.getElementById("maxPriceFilterInput");
+    if (minP) minP.value = "";
+    if (maxP) maxP.value = "";
+    document.getElementById("clearAllFilters")?.click();
+  });
+
   // Hero shortcut chips
   const allShortcutChips = document.querySelectorAll("[data-shortcut]");
   function setActiveShortcut(activeKey) {

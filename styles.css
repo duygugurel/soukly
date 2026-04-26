@@ -108,16 +108,55 @@ img {
 }
 
 .app-header {
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto;
   align-items: center;
   margin-bottom: 24px;
-  gap: 32px;
+  gap: 24px;
 }
 
 .header-nav {
   display: flex;
   gap: 6px;
   align-items: center;
+}
+
+.header-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+}
+
+.header-search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 0.95rem;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.header-search-input {
+  width: 100%;
+  padding: 11px 16px 11px 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(38, 53, 46, 0.15);
+  background: rgba(246, 244, 239, 0.9);
+  font-size: 0.92rem;
+  color: var(--text);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.header-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(38, 53, 46, 0.08);
+}
+
+.header-search-input::placeholder {
+  color: var(--muted);
 }
 
 .header-actions,
@@ -1336,6 +1375,119 @@ button:disabled {
   box-shadow: 0 4px 12px rgba(38, 53, 46, 0.25);
 }
 
+/* "More filters" chip — distinctive */
+.cat-chip--more {
+  background: #fff !important;
+  border: 1px dashed rgba(38, 53, 46, 0.4) !important;
+  color: var(--accent) !important;
+  margin-left: 6px;
+}
+
+.cat-chip--more.is-open {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+
+/* Collapsible filter panel */
+.filter-panel--collapsible[hidden] {
+  display: none !important;
+}
+
+/* Color chips */
+.color-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  background: rgba(237, 231, 220, 0.7);
+  border: 1px solid rgba(38, 53, 46, 0.12);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.color-chip:hover { transform: translateY(-1px); border-color: rgba(38, 53, 46, 0.3); }
+
+.color-chip.is-selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.color-dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Size chips */
+.size-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: rgba(237, 231, 220, 0.7);
+  border: 1px solid rgba(38, 53, 46, 0.12);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.size-chip:hover { transform: translateY(-1px); border-color: rgba(38, 53, 46, 0.3); }
+
+.size-chip.is-selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Rating chips */
+.rating-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(237, 231, 220, 0.7);
+  border: 1px solid rgba(38, 53, 46, 0.12);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.rating-chip:hover { transform: translateY(-1px); border-color: rgba(38, 53, 46, 0.3); }
+
+.rating-chip.is-selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Filter actions row */
+.filter-actions-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Wrap colour chips nicely */
+.filter-color-wrap {
+  gap: 8px !important;
+}
+
 /* ── Marketplace header ── */
 .marketplace-header {
   display: flex;
@@ -2510,6 +2662,12 @@ button:disabled {
     gap: 10px;
     align-items: center;
     margin-bottom: 16px;
+  }
+
+  .header-search-wrap {
+    grid-column: 1 / -1;
+    max-width: none;
+    order: 5;
   }
 
   .header-actions {
