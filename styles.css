@@ -125,7 +125,8 @@ img {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 360px;
+  min-width: 220px;
+  max-width: 480px;
   justify-self: center;
 }
 

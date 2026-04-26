@@ -2459,6 +2459,21 @@ function handleChatSubmit(event) {
       return;
     }
 
+    // Create a notification for the recipient so they see new messages
+    // in the Notifications panel and can jump to the conversation from there.
+    const senderName = state.currentUser?.fullName || state.currentUser?.username || "Someone";
+    const productTitle = conversation.product?.title || "your listing";
+    const preview = text.length > 80 ? text.slice(0, 77) + "..." : text;
+    await supabaseClient.from("notifications").insert({
+      profile_id: recipientProfileId,
+      type: "new_message",
+      title: `New message from ${senderName}`,
+      body: `About "${productTitle}": ${preview}`,
+      related_product_id: conversation.product?.id || null,
+      related_conversation_id: conversation.id,
+      is_read: false,
+    });
+
     safeReset(form);
     await loadDataFromSupabase();
     renderMessages();
