@@ -1246,24 +1246,26 @@ async function uploadSingleImage(base64, index) {
   const path = `products/${Date.now()}_${Math.random().toString(36).slice(2)}_${index}.jpg`;
 
   const uploadPromise = supabaseClient.storage
-    .from("product-images")
+    .from("final-product-images")
     .upload(path, blob, { contentType: "image/jpeg", upsert: false });
 
-  // 25-second timeout per image
+  // 60-second timeout per image
   const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error(`Photo ${index + 1} upload timed out. Check your internet connection and Supabase Storage settings.`)), 25000)
+    setTimeout(() => reject(new Error(`Photo ${index + 1} upload timed out (60s). Most common cause: the "final-product-images" Storage bucket isn't set up. In Supabase: Storage → New bucket → name "final-product-images" → toggle Public ON.`)), 60000)
   );
 
   const { data, error } = await Promise.race([uploadPromise, timeoutPromise]);
   if (error) {
-    const hint = error.message?.includes("row") || error.message?.includes("policy") || error.message?.includes("Unauthorized")
-      ? `${error.message} — Make sure the "product-images" Storage bucket exists and is Public in Supabase.`
+    const hint = error.message?.includes("not found") || error.message?.includes("Bucket")
+      ? `Storage bucket "final-product-images" not found. In Supabase: Storage → New bucket → name "final-product-images" → toggle Public ON.`
+      : error.message?.includes("row") || error.message?.includes("policy") || error.message?.includes("Unauthorized")
+      ? `${error.message} — In Supabase Storage, check the "final-product-images" bucket exists and is Public, and that the upload RLS policy allows authenticated users.`
       : error.message;
     throw new Error(`Photo ${index + 1}: ${hint}`);
   }
 
   const { data: urlData } = supabaseClient.storage
-    .from("product-images")
+    .from("final-product-images")
     .getPublicUrl(data.path);
   return urlData.publicUrl;
 }
