@@ -1989,6 +1989,27 @@ function renderDetail() {
   const images = product.images || [product.image || placeholderImage];
   elements.detailImage.src = images[0];
 
+  // Swap badge on detail image (matches listing card badge — bottom-right corner)
+  const detailWrap = elements.detailImage.parentElement;
+  if (detailWrap) {
+    if (getComputedStyle(detailWrap).position === "static") {
+      detailWrap.style.position = "relative";
+    }
+    let detailSwapBadge = document.getElementById("detailSwapBadge");
+    if (product.isSwapOpen) {
+      if (!detailSwapBadge) {
+        detailSwapBadge = document.createElement("span");
+        detailSwapBadge.id = "detailSwapBadge";
+        detailSwapBadge.className = "swap-badge";
+        detailSwapBadge.innerHTML = `<svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg>Swap`;
+        detailWrap.appendChild(detailSwapBadge);
+      }
+      detailSwapBadge.hidden = false;
+    } else if (detailSwapBadge) {
+      detailSwapBadge.hidden = true;
+    }
+  }
+
   // Multi-image gallery thumbnails
   let gallery = document.getElementById("detailGallery");
   if (images.length > 1) {

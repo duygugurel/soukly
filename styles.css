@@ -1085,7 +1085,9 @@ button:disabled {
   height: 0.95em;
 }
 .listing-image-wrap .swap-badge,
-.product-card .swap-badge {
+.product-card .swap-badge,
+.detail-image-wrap .swap-badge,
+#detailSwapBadge {
   position: absolute;
   bottom: 12px;
   right: 12px;
@@ -1096,8 +1098,18 @@ button:disabled {
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
+/* Slightly larger on detail page */
+.detail-image-wrap .swap-badge,
+#detailSwapBadge {
+  bottom: 16px;
+  right: 16px;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+}
 .listing-image-wrap .swap-badge .bicon,
-.product-card .swap-badge .bicon {
+.product-card .swap-badge .bicon,
+.detail-image-wrap .swap-badge .bicon,
+#detailSwapBadge .bicon {
   width: 1.05em;
   height: 1.05em;
   color: #26352E;
