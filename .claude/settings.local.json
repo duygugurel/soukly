@@ -19,7 +19,9 @@
       "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); & \"$env:ProgramFiles\\\\GitHub CLI\\\\gh.exe\" auth status 2>&1)",
       "PowerShell(& \"$env:ProgramFiles\\\\GitHub CLI\\\\gh.exe\" repo list --limit 30 2>&1)",
       "PowerShell(Set-Location \"C:\\\\Users\\\\DuyguYilmaz\\\\Desktop\\\\dolap benzeri uygulama\"; Select-String -Path 'index.html' -Pattern '💚|❤|⭐|🚚|💰|🛡|👥|📍|💬|🤝|🛍|🏷' | ForEach-Object { \"{0}: {1}\" -f $_.LineNumber, $_.Line.Trim\\(\\) } | Select-Object -First 40)",
-      "PowerShell(Set-Location \"C:\\\\Users\\\\DuyguYilmaz\\\\Desktop\\\\dolap benzeri uygulama\"; Select-String -Path 'app.js' -Pattern '💚|❤|⭐|🚚|💰|🛡|👥|📍|💬|🤝|🛍|🏷|🛒|✅|❌|🔔' | ForEach-Object { \"{0}: {1}\" -f $_.LineNumber, $_.Line.Trim\\(\\) } | Select-Object -First 50)"
+      "PowerShell(Set-Location \"C:\\\\Users\\\\DuyguYilmaz\\\\Desktop\\\\dolap benzeri uygulama\"; Select-String -Path 'app.js' -Pattern '💚|❤|⭐|🚚|💰|🛡|👥|📍|💬|🤝|🛍|🏷|🛒|✅|❌|🔔' | ForEach-Object { \"{0}: {1}\" -f $_.LineNumber, $_.Line.Trim\\(\\) } | Select-Object -First 50)",
+      "Bash(node -c app.js)",
+      "PowerShell(node -c app.js 2>&1)"
     ]
   }
 }

@@ -82,6 +82,14 @@
           <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-7-7-12a7 7 0 0 1 14 0c0 5-7 12-7 12z"/>
           <circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
         </symbol>
+        <symbol id="bicon-swap" viewBox="0 0 24 24">
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 8h13l-3-3M20 16H7l3 3"/>
+        </symbol>
+        <symbol id="bicon-wallet" viewBox="0 0 24 24">
+          <rect x="3" y="6" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 9.5h13a2 2 0 0 1 2 2v1.5a2 2 0 0 1-2 2H3"/>
+          <circle cx="16.5" cy="12.75" r="1.1" fill="currentColor"/>
+        </symbol>
       </defs>
     </svg>
 
@@ -242,6 +250,67 @@
                 <button type="submit" class="solid-button full-width" id="passwordRecoverySubmitButton">Update password</button>
               </form>
               <div class="form-feedback" id="passwordRecoveryFeedback" hidden></div>
+            </div>
+          </div>
+
+          <!-- Swap proposal modal -->
+          <div class="auth-modal-overlay" id="swapModalOverlay" hidden>
+            <div class="auth-modal card" style="max-width:560px;">
+              <button class="auth-modal-close" id="swapModalClose" type="button">✕</button>
+              <h3 style="display:flex; align-items:center; gap:10px;">
+                <svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-swap"/></svg>
+                Propose a swap
+              </h3>
+              <p class="microcopy">Pick one of your products to offer in exchange. If prices differ, the lower-priced owner pays the difference from their Soukly Wallet.</p>
+
+              <div class="swap-modal-products">
+                <div class="swap-modal-product-card" id="swapModalTargetCard">
+                  <span class="microcopy">Their product</span>
+                </div>
+                <div class="swap-modal-arrow"><svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg></div>
+                <div id="swapModalMineSlot">
+                  <div class="swap-modal-product-placeholder">Pick one of your products below</div>
+                </div>
+              </div>
+
+              <p class="filter-section-label">Your products</p>
+              <div class="swap-my-product-list" id="swapMyProductList">
+                <div class="empty-state compact">You haven't published any products yet.</div>
+              </div>
+
+              <label class="full-span" style="margin-top:14px;">
+                Message to seller (optional)
+                <textarea id="swapProposalMessage" rows="3" placeholder="Hi! I'd love to swap. My item is in great condition – let me know what you think."></textarea>
+              </label>
+
+              <div class="swap-diff-summary" id="swapDiffSummary" hidden></div>
+
+              <button type="button" class="solid-button full-width" id="swapSubmitButton" style="margin-top:14px;" disabled>Send swap proposal</button>
+              <div class="form-feedback" id="swapFeedback" hidden></div>
+            </div>
+          </div>
+
+          <!-- Wallet top-up / withdraw modal -->
+          <div class="auth-modal-overlay" id="walletModalOverlay" hidden>
+            <div class="auth-modal card" style="max-width:420px;">
+              <button class="auth-modal-close" id="walletModalClose" type="button">✕</button>
+              <h3 id="walletModalTitle" style="display:flex; align-items:center; gap:10px;">
+                <svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-wallet"/></svg>
+                Top up wallet
+              </h3>
+              <p class="microcopy" id="walletModalSub">Add Soukly Dirham (1 SD = 1 AED) to your wallet. In demo mode this is instant.</p>
+              <form id="walletForm" class="stack-form">
+                <label>
+                  Amount in SD
+                  <input type="number" name="amount" min="1" placeholder="100" required />
+                </label>
+                <label id="walletDescLabel">
+                  Description (optional)
+                  <input type="text" name="description" placeholder="Card top-up" />
+                </label>
+                <button type="submit" class="solid-button full-width" id="walletSubmitButton">Confirm</button>
+              </form>
+              <div class="form-feedback" id="walletFeedback" hidden></div>
             </div>
           </div>
 
@@ -463,6 +532,19 @@
                         required
                       ></textarea>
                     </label>
+                    <div class="full-span swap-toggle-field">
+                      <label class="swap-toggle">
+                        <input type="checkbox" name="is_swap_open" id="isSwapOpenInput" />
+                        <span class="swap-toggle-track"><span class="swap-toggle-thumb"></span></span>
+                        <span class="swap-toggle-content">
+                          <span class="swap-toggle-title">
+                            <svg class="bicon bicon--lg" aria-hidden="true"><use href="#bicon-swap"/></svg>
+                            Open to swap?
+                          </span>
+                          <span class="swap-toggle-sub">Let buyers offer one of their products in exchange. You can still accept cash offers.</span>
+                        </span>
+                      </label>
+                    </div>
                     <button type="submit" class="solid-button full-width" id="productSubmitButton">Publish product</button>
                   </form>
                   <div class="form-feedback" id="productFeedback" hidden></div>
@@ -526,10 +608,29 @@
                 </label>
                 <div class="form-feedback" id="profileFeedback" hidden></div>
 
+                <!-- Soukly Wallet card (logged-in users) -->
+                <div class="wallet-card" id="walletCard" hidden>
+                  <span class="wallet-card-label">
+                    <svg class="bicon bicon--lg" aria-hidden="true"><use href="#bicon-wallet"/></svg>
+                    Soukly Wallet
+                  </span>
+                  <div class="wallet-card-balance">
+                    <span id="walletBalance">0.00</span>
+                    <span class="wallet-currency">SD</span>
+                  </div>
+                  <div class="wallet-actions">
+                    <button type="button" class="wallet-action-btn" id="walletTopUpBtn">+ Top up</button>
+                    <button type="button" class="wallet-action-btn" id="walletWithdrawBtn">Withdraw</button>
+                    <button type="button" class="wallet-action-btn" id="walletHistoryBtn">History</button>
+                  </div>
+                </div>
+                <div class="wallet-tx-list" id="walletTxList" hidden></div>
+
                 <!-- Tab bar -->
                 <div class="profile-tabs">
                   <button type="button" class="profile-tab active-tab" data-profile-tab="listings">Listings</button>
                   <button type="button" class="profile-tab" data-profile-tab="saved">Saved</button>
+                  <button type="button" class="profile-tab" data-profile-tab="swaps">Swaps</button>
                 </div>
 
                 <!-- Listings tab content -->
@@ -540,6 +641,18 @@
                 <!-- Saved tab content (hidden by default) -->
                 <div id="profileTabSaved" hidden>
                   <div class="listing-grid profile-listing-grid" id="favoriteListings"></div>
+                </div>
+
+                <!-- Swaps tab content (incoming + outgoing swap proposals) -->
+                <div id="profileTabSwaps" hidden>
+                  <div class="filter-section">
+                    <p class="filter-section-label">Swap proposals you received</p>
+                    <div id="swapInboxList"><div class="empty-state compact">No incoming swap proposals yet.</div></div>
+                  </div>
+                  <div class="filter-section" style="margin-top:18px;">
+                    <p class="filter-section-label">Swap proposals you sent</p>
+                    <div id="swapOutboxList"><div class="empty-state compact">You haven't sent any swap proposals yet.</div></div>
+                  </div>
                 </div>
 
                 <!-- Hidden compat: statDelivery still set by JS -->
@@ -615,6 +728,12 @@
                       <button type="button" class="detail-offer-btn" id="toggleOfferButton">Make an offer</button>
                       <button type="button" class="detail-message-btn" id="openMessageButton">Message seller</button>
                     </div>
+
+                    <!-- Propose swap (only for products with is_swap_open) -->
+                    <button type="button" class="ghost-button full-width" id="proposeSwapButton" hidden style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                      <svg class="bicon bicon--lg" aria-hidden="true"><use href="#bicon-swap"/></svg>
+                      Propose a swap
+                    </button>
 
                     <!-- 9. Secondary actions -->
                     <div class="detail-secondary-actions">

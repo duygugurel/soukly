@@ -36,15 +36,16 @@ const makeDemoProduct = (overrides) => ({
   ratingCount: 0,
   averageRating: null,
   isDemo: true,
+  isSwapOpen: false,
   ...overrides,
 });
 
 const defaultProducts = [
   makeDemoProduct({ title: "Zara Floral Midi Dress",           category: "Woman",      price: 165, condition: "Like new",      delivery: "Shipping",                   location: "Dubai Marina",  description: "Stunning midi dress in soft floral print, size S. Worn once to a garden brunch. Dry-cleaned and ready to ship.",      brands: ["Zara"],        hashtags: ["#zara","#dress","#summerstyle"] }),
-  makeDemoProduct({ title: "Mango Linen Blazer – Camel",       category: "Woman",      price: 220, condition: "New with tags", delivery: "Shipping",                   location: "JLT",           description: "Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit.",                   brands: ["Mango"],       hashtags: ["#mango","#blazer","#newtags"] }),
-  makeDemoProduct({ title: "Nike Air Max 270 – White/Gold",    category: "Shoes&Bags", price: 280, condition: "Like new",      delivery: "Shipping or hand delivery",  location: "JBR",           description: "Size UK 7 / EU 40.5. Worn only 2-3 times indoors. No visible wear on sole. Original box included.",                   brands: ["Nike"],        hashtags: ["#nike","#airmax","#sneakers"] }),
+  makeDemoProduct({ title: "Mango Linen Blazer – Camel",       category: "Woman",      price: 220, condition: "New with tags", delivery: "Shipping",                   location: "JLT",           description: "Brand new, original tags still attached. Size M. Never worn – bought during sale but does not fit.",                   brands: ["Mango"],       hashtags: ["#mango","#blazer","#newtags"], isSwapOpen: true }),
+  makeDemoProduct({ title: "Nike Air Max 270 – White/Gold",    category: "Shoes&Bags", price: 280, condition: "Like new",      delivery: "Shipping or hand delivery",  location: "JBR",           description: "Size UK 7 / EU 40.5. Worn only 2-3 times indoors. No visible wear on sole. Original box included.",                   brands: ["Nike"],        hashtags: ["#nike","#airmax","#sneakers"], isSwapOpen: true }),
   makeDemoProduct({ title: "Dyson Airwrap Complete Styler",    category: "Beauty",     price: 950, condition: "Like new",      delivery: "Shipping",                   location: "Downtown Dubai",description: "All original attachments, storage case, and box included. Lightly used – selling because I upgraded to the newer model.", brands: ["Dyson"],       hashtags: ["#dyson","#airwrap","#hairtools"] }),
-  makeDemoProduct({ title: "Coach Tabby Shoulder Bag – Tan",   category: "Shoes&Bags", price: 620, condition: "Like new",      delivery: "Shipping",                   location: "DIFC",          description: "Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use. Comes with original dust bag.",                  brands: ["Coach"],       hashtags: ["#coach","#bag","#luxury"] }),
+  makeDemoProduct({ title: "Coach Tabby Shoulder Bag – Tan",   category: "Shoes&Bags", price: 620, condition: "Like new",      delivery: "Shipping",                   location: "DIFC",          description: "Authentic Coach Tabby 26 in tan pebbled leather. Minimal signs of use. Comes with original dust bag.",                  brands: ["Coach"],       hashtags: ["#coach","#bag","#luxury"], isSwapOpen: true }),
   makeDemoProduct({ title: "Sunday Riley Good Genes Serum",    category: "Beauty",     price: 95,  condition: "Sealed",        delivery: "Shipping",                   location: "Jumeirah",      description: "Sealed and unopened. Expiry 2026. Received as a gift but already have one. Stored away from heat.",                     brands: ["Sunday Riley"],hashtags: ["#sundayriley","#serum","#sealed"] }),
   makeDemoProduct({ title: "Lululemon Align Leggings – Black", category: "Sports",     price: 175, condition: "Like new",      delivery: "Shipping",                   location: "Dubai Marina",  description: "Size 6. Washed once, no pilling, no fading. Buttery-soft feel still perfect. Great for yoga or pilates.",              brands: ["Lululemon"],   hashtags: ["#lululemon","#yoga","#activewear"] }),
   makeDemoProduct({ title: "Swarovski Crystal Stud Earrings",  category: "Accessories",price: 130, condition: "Like new",      delivery: "Shipping",                   location: "Palm Jumeirah", description: "Classic round crystal studs in silver setting. Barely worn – only twice. Original gift box and pouch included.",         brands: ["Swarovski"],   hashtags: ["#swarovski","#earrings","#jewellery"] }),
@@ -139,6 +140,33 @@ const elements = {
   chatThreadHeader: document.getElementById("chatThreadHeader"),
   chatThread: document.getElementById("chatThread"),
   chatForm: document.getElementById("chatForm"),
+  // Swap & wallet
+  proposeSwapButton: document.getElementById("proposeSwapButton"),
+  swapModalOverlay: document.getElementById("swapModalOverlay"),
+  swapModalClose: document.getElementById("swapModalClose"),
+  swapModalTargetCard: document.getElementById("swapModalTargetCard"),
+  swapModalMineSlot: document.getElementById("swapModalMineSlot"),
+  swapMyProductList: document.getElementById("swapMyProductList"),
+  swapProposalMessage: document.getElementById("swapProposalMessage"),
+  swapDiffSummary: document.getElementById("swapDiffSummary"),
+  swapSubmitButton: document.getElementById("swapSubmitButton"),
+  swapFeedback: document.getElementById("swapFeedback"),
+  walletCard: document.getElementById("walletCard"),
+  walletBalance: document.getElementById("walletBalance"),
+  walletTopUpBtn: document.getElementById("walletTopUpBtn"),
+  walletWithdrawBtn: document.getElementById("walletWithdrawBtn"),
+  walletHistoryBtn: document.getElementById("walletHistoryBtn"),
+  walletTxList: document.getElementById("walletTxList"),
+  walletModalOverlay: document.getElementById("walletModalOverlay"),
+  walletModalClose: document.getElementById("walletModalClose"),
+  walletModalTitle: document.getElementById("walletModalTitle"),
+  walletModalSub: document.getElementById("walletModalSub"),
+  walletForm: document.getElementById("walletForm"),
+  walletSubmitButton: document.getElementById("walletSubmitButton"),
+  walletFeedback: document.getElementById("walletFeedback"),
+  swapInboxList: document.getElementById("swapInboxList"),
+  swapOutboxList: document.getElementById("swapOutboxList"),
+  profileTabSwaps: document.getElementById("profileTabSwaps"),
 };
 
 bindEvents();
@@ -504,6 +532,28 @@ function bindEvents() {
     elements.ratingForm.addEventListener("submit", handleRatingSubmit);
     elements.chatForm.addEventListener("submit", handleChatSubmit);
 
+  // Swap & wallet wiring
+  elements.proposeSwapButton?.addEventListener("click", openSwapModal);
+  elements.swapModalClose?.addEventListener("click", closeSwapModal);
+  elements.swapModalOverlay?.addEventListener("click", (e) => {
+    if (e.target === elements.swapModalOverlay) closeSwapModal();
+  });
+  elements.swapSubmitButton?.addEventListener("click", handleSwapSubmit);
+  elements.walletTopUpBtn?.addEventListener("click", () => openWalletModal("topup"));
+  elements.walletWithdrawBtn?.addEventListener("click", () => openWalletModal("withdraw"));
+  elements.walletHistoryBtn?.addEventListener("click", toggleWalletHistory);
+  elements.walletModalClose?.addEventListener("click", closeWalletModal);
+  elements.walletModalOverlay?.addEventListener("click", (e) => {
+    if (e.target === elements.walletModalOverlay) closeWalletModal();
+  });
+  elements.walletForm?.addEventListener("submit", handleWalletSubmit);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeSwapModal();
+      closeWalletModal();
+    }
+  });
+
   elements.navLinks.forEach((button) => {
     button.addEventListener("click", () => {
       const target = button.dataset.viewTarget;
@@ -595,11 +645,13 @@ async function initializeApp() {
     }
 
       await loadDataFromSupabase();
+      if (state.currentUser) await fetchWalletFromSupabase();
       setupRealtime();
       supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (event === "SIGNED_IN" && session?.user) {
           state.currentUser = await getOrCreateProfileFromSession(session, null);
           await loadDataFromSupabase();
+          await fetchWalletFromSupabase();
           render();
         }
         if (event === "PASSWORD_RECOVERY") {
@@ -723,6 +775,7 @@ async function loadDataFromSupabase() {
       delivery: normalizeDeliveryValue(product.delivery),
       location: product.location,
       description: product.description,
+      isSwapOpen: Boolean(product.is_swap_open),
       sellerName: sellerProfile?.full_name || "Seller",
       sellerProfileId: product.seller_profile_id,
       brands: [...new Set(
@@ -1097,6 +1150,7 @@ function handleProductSubmit(event) {
         location: formData.get("location").toString().trim(),
         description: formData.get("description").toString().trim(),
         image_url: storedImage,
+        is_swap_open: formData.get("is_swap_open") === "on",
       };
 
       const productQuery = state.editingProductId
@@ -1860,8 +1914,11 @@ function renderProfile() {
       const which = tab.dataset.profileTab;
       const listingsEl = document.getElementById("profileTabListings");
       const savedEl = document.getElementById("profileTabSaved");
+      const swapsEl = document.getElementById("profileTabSwaps");
       if (listingsEl) listingsEl.hidden = (which !== "listings");
       if (savedEl) savedEl.hidden = (which !== "saved");
+      if (swapsEl) swapsEl.hidden = (which !== "swaps");
+      if (which === "swaps") renderSwapInbox();
     };
   });
 
@@ -1885,8 +1942,13 @@ function renderProfile() {
     elements.statDelivery.textContent = "0";
     const statFollowers = document.getElementById("statFollowers");
     if (statFollowers) statFollowers.textContent = "0";
+    if (elements.walletCard) elements.walletCard.hidden = true;
+    if (elements.walletTxList) elements.walletTxList.hidden = true;
     return;
   }
+
+  // Show wallet card for logged-in users
+  renderWalletCard();
 
   const ownProducts = state.products.filter((product) => product.sellerProfileId === state.currentUser.profileId);
   const initials = state.currentUser.name
@@ -2057,6 +2119,21 @@ function renderDetail() {
   renderOfferHistory(product);
   renderRating(product);
   renderComments(product);
+
+  // Propose swap button — visible only when:
+  //  – product is open to swaps
+  //  – user is logged in
+  //  – user is NOT the seller
+  //  – user has at least one product of their own (checked at click time too)
+  if (elements.proposeSwapButton) {
+    const showSwap = Boolean(
+      product.isSwapOpen &&
+      state.currentUser &&
+      !isOwner &&
+      !product.isDemo
+    );
+    elements.proposeSwapButton.hidden = !showSwap;
+  }
 }
 
 function renderMessages() {
@@ -2450,7 +2527,8 @@ function createListingCard(product) {
       ${isOwner ? `<button type="button" class="ghost-button mini-button" data-edit-product-id="${product.id}">Edit</button>` : ""}
     </div>
     <button type="button" class="listing-click-target" data-product-id="${product.id}">
-      <div class="listing-image-wrap">
+      <div class="listing-image-wrap" style="position:relative;">
+        ${product.isSwapOpen ? `<span class="swap-badge"><svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg>Swap</span>` : ""}
         <img src="${product.image || placeholderImage}" alt="${escapeHtml(product.title)}" class="listing-image" />
       </div>
       <div class="listing-body">
@@ -3129,6 +3207,8 @@ function startEditingProduct(productId) {
   elements.productForm.querySelector('[name="manualBrand"]').value = (product.brands || []).join(", ");
   elements.productForm.querySelector('[name="hashtags"]').value = (product.hashtags || []).join(" ");
   elements.productForm.querySelector('[name="description"]').value = product.description;
+  const swapToggleEl = elements.productForm.querySelector('[name="is_swap_open"]');
+  if (swapToggleEl) swapToggleEl.checked = Boolean(product.isSwapOpen);
 
   if (state.draftImages.length) {
     renderImagePreviewGrid();
@@ -3298,4 +3378,489 @@ function formatDeliveryMethod(value) {
   // Fallback — title-case the first letter
   const label = value.charAt(0).toUpperCase() + value.slice(1);
   return { label, iconId: "shipping" };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ░░  SWAP  &  SOUKLY WALLET
+// ═══════════════════════════════════════════════════════════════════
+
+// Local in-memory cache of swap proposals & wallet state, mirroring DB.
+// Falls back to localStorage when Supabase is unavailable (demo mode).
+state.swapProposals = state.swapProposals || [];
+state.walletBalance = state.walletBalance || 0;
+state.walletTransactions = state.walletTransactions || [];
+state.swapModalSelection = null;
+
+function loadWalletFromStorage() {
+  try {
+    const raw = localStorage.getItem("souklyclub-wallet");
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    state.walletBalance = Number(parsed.balance) || 0;
+    state.walletTransactions = Array.isArray(parsed.transactions) ? parsed.transactions : [];
+    state.swapProposals = Array.isArray(parsed.swaps) ? parsed.swaps : [];
+  } catch (e) { /* ignore */ }
+}
+function saveWalletToStorage() {
+  try {
+    localStorage.setItem("souklyclub-wallet", JSON.stringify({
+      balance: state.walletBalance,
+      transactions: state.walletTransactions,
+      swaps: state.swapProposals,
+    }));
+  } catch (e) { /* ignore */ }
+}
+loadWalletFromStorage();
+
+async function fetchWalletFromSupabase() {
+  if (!supabaseClient || !state.currentUser?.profileId) return;
+  try {
+    const [walletRes, txRes, swapRes] = await Promise.all([
+      supabaseClient.from("wallets").select("*").eq("profile_id", state.currentUser.profileId).maybeSingle(),
+      supabaseClient.from("wallet_transactions").select("*").eq("profile_id", state.currentUser.profileId).order("created_at", { ascending: false }),
+      supabaseClient.from("swap_proposals").select("*").or(`proposer_profile_id.eq.${state.currentUser.profileId},recipient_profile_id.eq.${state.currentUser.profileId}`).order("created_at", { ascending: false }),
+    ]);
+    if (walletRes?.data) state.walletBalance = Number(walletRes.data.balance_sd) || 0;
+    if (txRes?.data) state.walletTransactions = txRes.data;
+    if (swapRes?.data) state.swapProposals = swapRes.data;
+    saveWalletToStorage();
+  } catch (e) {
+    console.warn("Wallet fetch failed (using local cache):", e?.message);
+  }
+}
+
+function formatSD(amount) {
+  const n = Number(amount) || 0;
+  return n.toFixed(2);
+}
+
+function renderWalletCard() {
+  if (!elements.walletCard) return;
+  elements.walletCard.hidden = false;
+  if (elements.walletBalance) elements.walletBalance.textContent = formatSD(state.walletBalance);
+}
+
+function toggleWalletHistory() {
+  if (!elements.walletTxList) return;
+  const isOpen = !elements.walletTxList.hidden;
+  if (isOpen) {
+    elements.walletTxList.hidden = true;
+    return;
+  }
+  // Render transactions
+  const txs = state.walletTransactions || [];
+  if (!txs.length) {
+    elements.walletTxList.innerHTML = '<div class="empty-state compact">No transactions yet. Top up to get started.</div>';
+  } else {
+    elements.walletTxList.innerHTML = txs.map((tx) => {
+      const negativeTypes = ["withdraw", "purchase", "swap_diff_out"];
+      const isNeg = negativeTypes.includes(tx.type);
+      const sign = isNeg ? "-" : "+";
+      const amountClass = isNeg ? "is-negative" : "is-positive";
+      const iconId = tx.type === "topup" ? "wallet"
+        : tx.type === "withdraw" ? "wallet"
+        : tx.type === "sale" ? "buy"
+        : tx.type === "purchase" ? "buy"
+        : tx.type.startsWith("swap_diff") ? "swap"
+        : "wallet";
+      const dateStr = formatTimestamp(tx.created_at || tx.createdAt || new Date().toISOString());
+      const title = tx.description || ({
+        topup: "Wallet top-up",
+        withdraw: "Withdrawal",
+        sale: "Product sale",
+        purchase: "Product purchase",
+        swap_diff_in: "Swap difference received",
+        swap_diff_out: "Swap difference paid",
+        adjustment: "Adjustment",
+      })[tx.type] || "Transaction";
+      return `
+        <div class="wallet-tx-row">
+          <div class="wallet-tx-icon"><svg class="bicon"><use href="#bicon-${iconId}"/></svg></div>
+          <div class="wallet-tx-meta">
+            <span class="wallet-tx-title">${escapeHtml(title)}</span>
+            <span class="wallet-tx-date">${escapeHtml(dateStr)}</span>
+          </div>
+          <span class="wallet-tx-amount ${amountClass}">${sign}${formatSD(tx.amount_sd || tx.amount)} SD</span>
+        </div>`;
+    }).join("");
+  }
+  elements.walletTxList.hidden = false;
+}
+
+let walletModalMode = "topup";
+function openWalletModal(mode) {
+  walletModalMode = mode;
+  if (!elements.walletModalOverlay) return;
+  if (mode === "withdraw") {
+    elements.walletModalTitle.innerHTML = `<svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-wallet"/></svg> Withdraw to bank`;
+    elements.walletModalSub.textContent = "Withdraw Soukly Dirham to your bank. In demo mode this is instant.";
+    elements.walletSubmitButton.textContent = "Withdraw";
+  } else {
+    elements.walletModalTitle.innerHTML = `<svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-wallet"/></svg> Top up wallet`;
+    elements.walletModalSub.textContent = "Add Soukly Dirham (1 SD = 1 AED) to your wallet. In demo mode this is instant.";
+    elements.walletSubmitButton.textContent = "Top up";
+  }
+  elements.walletForm.reset();
+  if (elements.walletFeedback) elements.walletFeedback.hidden = true;
+  elements.walletModalOverlay.hidden = false;
+}
+function closeWalletModal() {
+  if (elements.walletModalOverlay) elements.walletModalOverlay.hidden = true;
+}
+
+async function handleWalletSubmit(event) {
+  event.preventDefault();
+  if (!state.currentUser) {
+    showFeedback(elements.walletFeedback, "Please sign in first.", "error");
+    return;
+  }
+  const formData = new FormData(elements.walletForm);
+  const amount = Number(formData.get("amount"));
+  const description = formData.get("description")?.toString().trim() || "";
+  if (!amount || amount <= 0) {
+    showFeedback(elements.walletFeedback, "Please enter a positive amount.", "error");
+    return;
+  }
+  if (walletModalMode === "withdraw" && amount > state.walletBalance) {
+    showFeedback(elements.walletFeedback, "Insufficient balance.", "error");
+    return;
+  }
+  await applyWalletTransaction(walletModalMode, amount, description);
+  showFeedback(elements.walletFeedback, walletModalMode === "topup" ? "Top up successful!" : "Withdrawal complete.", "success");
+  setTimeout(() => {
+    closeWalletModal();
+    renderWalletCard();
+  }, 700);
+}
+
+async function applyWalletTransaction(type, amount, description, extras = {}) {
+  const isCredit = ["topup", "sale", "swap_diff_in", "adjustment"].includes(type);
+  const delta = isCredit ? amount : -amount;
+  state.walletBalance = Math.max(0, Number(state.walletBalance) + delta);
+  const tx = {
+    id: crypto.randomUUID(),
+    profile_id: state.currentUser?.profileId,
+    type,
+    amount_sd: amount,
+    description,
+    created_at: new Date().toISOString(),
+    ...extras,
+  };
+  state.walletTransactions.unshift(tx);
+  saveWalletToStorage();
+
+  // Persist to Supabase if available
+  if (supabaseClient && state.currentUser?.profileId) {
+    try {
+      await supabaseClient.from("wallets").upsert({
+        profile_id: state.currentUser.profileId,
+        balance_sd: state.walletBalance,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "profile_id" });
+      await supabaseClient.from("wallet_transactions").insert({
+        profile_id: state.currentUser.profileId,
+        type,
+        amount_sd: amount,
+        description,
+        related_swap_id: extras.related_swap_id || null,
+        related_product_id: extras.related_product_id || null,
+      });
+    } catch (e) {
+      console.warn("Wallet persist failed:", e?.message);
+    }
+  }
+  renderWalletCard();
+}
+
+// ─── Swap proposal modal ───────────────────────────────────────────
+
+function openSwapModal() {
+  const product = state.products.find((p) => p.id === state.selectedProductId);
+  if (!product) return;
+  if (!state.currentUser) {
+    document.getElementById("authModalOverlay").hidden = false;
+    return;
+  }
+  state.swapModalSelection = null;
+
+  // Fill target card
+  if (elements.swapModalTargetCard) {
+    elements.swapModalTargetCard.innerHTML = `
+      <img src="${product.image || placeholderImage}" alt="${escapeHtml(product.title)}" />
+      <span class="swap-modal-product-name">${escapeHtml(product.title)}</span>
+      <span class="swap-modal-product-price">${product.price} AED</span>
+    `;
+  }
+
+  // Reset mine slot
+  if (elements.swapModalMineSlot) {
+    elements.swapModalMineSlot.innerHTML = `<div class="swap-modal-product-placeholder">Pick one of your products below</div>`;
+  }
+
+  // List user's products (excluding the target)
+  const myProducts = state.products.filter((p) =>
+    p.sellerProfileId === state.currentUser.profileId && p.id !== product.id && !p.isDemo
+  );
+  if (!myProducts.length) {
+    elements.swapMyProductList.innerHTML = `<div class="empty-state compact">You haven't published any products yet. Add one first to propose a swap.</div>`;
+  } else {
+    elements.swapMyProductList.innerHTML = myProducts.map((p) => `
+      <button type="button" class="swap-my-product-pick" data-my-product-id="${p.id}">
+        <img src="${p.image || placeholderImage}" alt="${escapeHtml(p.title)}" />
+        <span class="swap-my-product-pick-name">${escapeHtml(p.title)}</span>
+        <span class="swap-my-product-pick-price">${p.price} AED</span>
+      </button>`).join("");
+    elements.swapMyProductList.querySelectorAll("[data-my-product-id]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.myProductId;
+        elements.swapMyProductList.querySelectorAll(".swap-my-product-pick").forEach((b) => b.classList.remove("is-selected"));
+        btn.classList.add("is-selected");
+        selectMyProductForSwap(id, product);
+      });
+    });
+  }
+
+  if (elements.swapProposalMessage) elements.swapProposalMessage.value = "";
+  if (elements.swapDiffSummary) {
+    elements.swapDiffSummary.hidden = true;
+    elements.swapDiffSummary.innerHTML = "";
+  }
+  if (elements.swapSubmitButton) elements.swapSubmitButton.disabled = true;
+  if (elements.swapFeedback) elements.swapFeedback.hidden = true;
+  elements.swapModalOverlay.hidden = false;
+}
+
+function closeSwapModal() {
+  if (elements.swapModalOverlay) elements.swapModalOverlay.hidden = true;
+}
+
+function selectMyProductForSwap(myProductId, targetProduct) {
+  const myProduct = state.products.find((p) => p.id === myProductId);
+  if (!myProduct) return;
+  state.swapModalSelection = { myProduct, targetProduct };
+
+  // Update mine slot
+  if (elements.swapModalMineSlot) {
+    elements.swapModalMineSlot.innerHTML = `
+      <div class="swap-modal-product-card">
+        <img src="${myProduct.image || placeholderImage}" alt="${escapeHtml(myProduct.title)}" />
+        <span class="swap-modal-product-name">${escapeHtml(myProduct.title)}</span>
+        <span class="swap-modal-product-price">${myProduct.price} AED</span>
+      </div>`;
+  }
+
+  // Diff summary
+  const diff = Number(targetProduct.price) - Number(myProduct.price);
+  const absDiff = Math.abs(diff);
+  let summary = "";
+  if (diff === 0) {
+    summary = `Both products are priced equally — <strong>direct swap</strong>, no wallet payment needed.`;
+  } else if (diff > 0) {
+    summary = `Their product costs <strong>${absDiff} AED</strong> more. If accepted, <strong>${absDiff} SD</strong> will be deducted from your Soukly Wallet to cover the difference.`;
+    if (state.walletBalance < absDiff) {
+      summary += `<br><br>⚠️ Your wallet balance (${formatSD(state.walletBalance)} SD) is below the required difference. You can still send the proposal — top up before it's accepted.`;
+    }
+  } else {
+    summary = `Your product costs <strong>${absDiff} AED</strong> more. If accepted, the seller will pay <strong>${absDiff} SD</strong> from their wallet to your wallet.`;
+  }
+  if (elements.swapDiffSummary) {
+    elements.swapDiffSummary.innerHTML = summary;
+    elements.swapDiffSummary.hidden = false;
+  }
+  if (elements.swapSubmitButton) elements.swapSubmitButton.disabled = false;
+}
+
+async function handleSwapSubmit() {
+  if (!state.swapModalSelection || !state.currentUser) return;
+  const { myProduct, targetProduct } = state.swapModalSelection;
+  const message = elements.swapProposalMessage?.value.trim() || "";
+  const diff = Number(targetProduct.price) - Number(myProduct.price);
+  const absDiff = Math.abs(diff);
+  // diffPayer = the owner of the lower-priced product
+  const diffPayerProfileId = diff > 0
+    ? state.currentUser.profileId         // their product is more expensive → I pay
+    : (diff < 0 ? targetProduct.sellerProfileId : null);
+
+  setButtonLoading(elements.swapSubmitButton, true, "Sending...");
+
+  const proposal = {
+    id: crypto.randomUUID(),
+    proposed_product_id: myProduct.id,
+    target_product_id: targetProduct.id,
+    proposer_profile_id: state.currentUser.profileId,
+    recipient_profile_id: targetProduct.sellerProfileId,
+    message,
+    price_difference_sd: absDiff,
+    diff_payer_profile_id: diffPayerProfileId,
+    status: "pending",
+    created_at: new Date().toISOString(),
+  };
+
+  // Persist to Supabase if available
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient.from("swap_proposals").insert({
+        proposed_product_id: proposal.proposed_product_id,
+        target_product_id: proposal.target_product_id,
+        proposer_profile_id: proposal.proposer_profile_id,
+        recipient_profile_id: proposal.recipient_profile_id,
+        message: proposal.message,
+        price_difference_sd: proposal.price_difference_sd,
+        diff_payer_profile_id: proposal.diff_payer_profile_id,
+        status: "pending",
+      }).select().single();
+      if (error) throw error;
+      if (data?.id) proposal.id = data.id;
+
+      // Send notification to seller
+      await supabaseClient.from("notifications").insert({
+        profile_id: targetProduct.sellerProfileId,
+        type: "swap_proposed",
+        title: "New swap proposal",
+        body: `${state.currentUser.name} wants to swap "${myProduct.title}" for your "${targetProduct.title}".`,
+        related_product_id: targetProduct.id,
+      });
+    } catch (e) {
+      console.warn("Swap persist failed:", e?.message);
+    }
+  }
+
+  state.swapProposals.unshift(proposal);
+  saveWalletToStorage();
+
+  setButtonLoading(elements.swapSubmitButton, false, "Send swap proposal");
+  showFeedback(elements.swapFeedback, "Swap proposal sent! The seller will be notified.", "success");
+  setTimeout(() => closeSwapModal(), 1100);
+}
+
+// ─── Swap inbox / outbox (in profile Swaps tab) ────────────────────
+
+function renderSwapInbox() {
+  if (!elements.swapInboxList || !elements.swapOutboxList) return;
+  if (!state.currentUser) {
+    elements.swapInboxList.innerHTML = `<div class="empty-state compact">Sign in to view swap proposals.</div>`;
+    elements.swapOutboxList.innerHTML = "";
+    return;
+  }
+  const myId = state.currentUser.profileId;
+  const inbox = (state.swapProposals || []).filter((p) => p.recipient_profile_id === myId);
+  const outbox = (state.swapProposals || []).filter((p) => p.proposer_profile_id === myId);
+
+  elements.swapInboxList.innerHTML = inbox.length
+    ? inbox.map((p) => renderSwapInboxCard(p, "incoming")).join("")
+    : `<div class="empty-state compact">No incoming swap proposals yet.</div>`;
+  elements.swapOutboxList.innerHTML = outbox.length
+    ? outbox.map((p) => renderSwapInboxCard(p, "outgoing")).join("")
+    : `<div class="empty-state compact">You haven't sent any swap proposals yet.</div>`;
+
+  elements.swapInboxList.querySelectorAll("[data-swap-action]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const action = btn.dataset.swapAction;
+      const id = btn.dataset.swapId;
+      if (action === "accept") void acceptSwap(id);
+      else if (action === "reject") void rejectSwap(id);
+    });
+  });
+}
+
+function renderSwapInboxCard(proposal, kind) {
+  const myProd = state.products.find((p) => p.id === proposal.proposed_product_id);
+  const targetProd = state.products.find((p) => p.id === proposal.target_product_id);
+  const myName = myProd?.title || "their product";
+  const targetName = targetProd?.title || "your product";
+  const statusBadge = proposal.status === "pending"
+    ? `<span class="card-pill" style="background:rgba(245,200,80,0.2);">Pending</span>`
+    : proposal.status === "accepted"
+    ? `<span class="card-pill" style="background:rgba(45,106,79,0.18);color:#2d6a4f;">Accepted</span>`
+    : proposal.status === "rejected"
+    ? `<span class="card-pill" style="background:rgba(179,76,76,0.18);color:#b34c4c;">Rejected</span>`
+    : `<span class="card-pill">${escapeHtml(proposal.status)}</span>`;
+
+  const diffLine = Number(proposal.price_difference_sd) > 0
+    ? `<small>Price difference: <strong>${formatSD(proposal.price_difference_sd)} SD</strong></small>`
+    : `<small>Equal value — direct swap</small>`;
+
+  const actions = (kind === "incoming" && proposal.status === "pending") ? `
+    <div class="swap-inbox-actions">
+      <button type="button" class="solid-button" data-swap-action="accept" data-swap-id="${proposal.id}">Accept</button>
+      <button type="button" class="ghost-button" data-swap-action="reject" data-swap-id="${proposal.id}">Reject</button>
+    </div>
+  ` : "";
+
+  return `
+    <article class="swap-inbox-card">
+      <div style="display:flex; gap:10px; align-items:center;">
+        <svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-swap"/></svg>
+        <strong>${kind === "incoming" ? escapeHtml(myName) + " → " + escapeHtml(targetName) : escapeHtml(myName) + " → " + escapeHtml(targetName)}</strong>
+        ${statusBadge}
+      </div>
+      ${proposal.message ? `<p style="margin:0; color:rgba(33,26,23,0.8);">${escapeHtml(proposal.message)}</p>` : ""}
+      ${diffLine}
+      ${actions}
+    </article>`;
+}
+
+async function acceptSwap(swapId) {
+  const proposal = state.swapProposals.find((p) => p.id === swapId);
+  if (!proposal) return;
+
+  // Wallet difference handling
+  const absDiff = Number(proposal.price_difference_sd) || 0;
+  if (absDiff > 0 && proposal.diff_payer_profile_id) {
+    const payerIsMe = proposal.diff_payer_profile_id === state.currentUser.profileId;
+    if (payerIsMe) {
+      if (state.walletBalance < absDiff) {
+        alert(`You need ${formatSD(absDiff)} SD in your wallet to accept this swap. Top up first.`);
+        return;
+      }
+      await applyWalletTransaction("swap_diff_out", absDiff,
+        `Swap difference paid to other party`,
+        { related_swap_id: swapId });
+    } else {
+      // Other party pays — credit me
+      await applyWalletTransaction("swap_diff_in", absDiff,
+        `Swap difference received from other party`,
+        { related_swap_id: swapId });
+    }
+  }
+
+  proposal.status = "accepted";
+  saveWalletToStorage();
+
+  if (supabaseClient) {
+    try {
+      await supabaseClient.from("swap_proposals").update({ status: "accepted" }).eq("id", swapId);
+      await supabaseClient.from("notifications").insert({
+        profile_id: proposal.proposer_profile_id,
+        type: "swap_accepted",
+        title: "Swap accepted!",
+        body: "Your swap proposal was accepted. Coordinate delivery in messages.",
+        related_product_id: proposal.target_product_id,
+      });
+    } catch (e) { console.warn(e); }
+  }
+
+  renderSwapInbox();
+  renderWalletCard();
+  alert("Swap accepted! Coordinate delivery with the other party in messages.");
+}
+
+async function rejectSwap(swapId) {
+  const proposal = state.swapProposals.find((p) => p.id === swapId);
+  if (!proposal) return;
+  proposal.status = "rejected";
+  saveWalletToStorage();
+  if (supabaseClient) {
+    try {
+      await supabaseClient.from("swap_proposals").update({ status: "rejected" }).eq("id", swapId);
+      await supabaseClient.from("notifications").insert({
+        profile_id: proposal.proposer_profile_id,
+        type: "swap_rejected",
+        title: "Swap rejected",
+        body: "Your swap proposal was rejected.",
+        related_product_id: proposal.target_product_id,
+      });
+    } catch (e) { console.warn(e); }
+  }
+  renderSwapInbox();
 }
