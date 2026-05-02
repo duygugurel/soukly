@@ -1815,12 +1815,22 @@ button:disabled {
 /* ── Hero banner ── */
 .hero-banner {
   display: block;
-  padding: 40px 44px;
+  /* Full-bleed: break out of the .app-shell max-width + padding so the banner
+     stretches edge-to-edge across the viewport. */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  /* Inner padding compensates with the same horizontal value the app-shell
+     would have used, so the text still aligns with the rest of the page. */
+  padding: 40px max(44px, calc((100vw - 1320px) / 2 + 20px));
   background:
     radial-gradient(ellipse at bottom right, rgba(169,184,162,0.35), transparent 55%),
     radial-gradient(ellipse at top left, rgba(245,201,122,0.28), transparent 45%),
     linear-gradient(135deg, #fff9f0 0%, #fdf0e0 100%);
   border: 1px solid rgba(38,53,46,0.18);
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
   margin-bottom: 0;
 }
 
@@ -3322,9 +3332,16 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
-  /* Hero banner compact on mobile */
+  /* Hero banner compact on mobile (still full-bleed) */
   .hero-banner {
     padding: 24px 18px;
+  }
+  /* On mobile we don't need the wide compensation — the app-shell padding
+     is already small. */
+  @media (max-width: 720px) {
+    .hero-banner {
+      padding: 24px 18px;
+    }
   }
 
   .hero-banner-text h2 {
