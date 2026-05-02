@@ -1116,6 +1116,88 @@ button:disabled {
 /* The new bicon-swap has its own brand colours, so currentColor doesn't affect it */
 [href="#bicon-swap"], use[href="#bicon-swap"] { color: inherit; }
 
+/* ═══ Swap-flow banner (above profile tabs) ═══ */
+.swap-flow-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(169, 184, 162, 0.22), rgba(205, 184, 154, 0.22));
+  border: 1px solid rgba(38, 53, 46, 0.12);
+  margin: 16px 0 12px;
+}
+.swap-flow-banner-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(38, 53, 46, 0.08);
+}
+.swap-flow-banner-icon .bicon {
+  width: 28px;
+  height: 28px;
+}
+.swap-flow-banner-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.swap-flow-banner-body strong {
+  font-size: 0.95rem;
+  color: #26352e;
+}
+.swap-flow-banner-target {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(38, 53, 46, 0.78);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.swap-flow-banner-target img {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.swap-flow-banner-target span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.swap-flow-banner-cancel {
+  flex-shrink: 0;
+  border: none;
+  background: rgba(38, 53, 46, 0.08);
+  color: #26352e;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.swap-flow-banner-cancel:hover {
+  background: rgba(38, 53, 46, 0.16);
+}
+@media (max-width: 480px) {
+  .swap-flow-banner {
+    flex-wrap: wrap;
+  }
+  .swap-flow-banner-cancel {
+    margin-left: auto;
+  }
+}
+
 /* ═══ Swap proposal modal ═══ */
 .swap-modal-products {
   display: grid;

@@ -271,7 +271,7 @@
                 <svg class="bicon bicon--lg bicon--accent" aria-hidden="true"><use href="#bicon-swap"/></svg>
                 Propose a swap
               </h3>
-              <p class="microcopy">Pick one of your products to offer in exchange. If prices differ, the lower-priced owner pays the difference from their Soukly Wallet.</p>
+              <p class="microcopy" id="swapModalMicrocopy">Review the swap below. If prices differ, the lower-priced owner pays the difference from their Soukly Wallet.</p>
 
               <div class="swap-modal-products">
                 <div class="swap-modal-product-card" id="swapModalTargetCard">
@@ -635,6 +635,19 @@
                   </div>
                 </div>
                 <div class="wallet-tx-list" id="walletTxList" hidden></div>
+
+                <!-- Swap-flow selection banner (shown only when user is choosing
+                     which of their products to offer in exchange) -->
+                <div class="swap-flow-banner" id="swapFlowBanner" hidden>
+                  <div class="swap-flow-banner-icon">
+                    <svg class="bicon bicon--lg" aria-hidden="true"><use href="#bicon-swap"/></svg>
+                  </div>
+                  <div class="swap-flow-banner-body">
+                    <strong>Pick a product to offer in swap</strong>
+                    <span class="swap-flow-banner-target" id="swapFlowBannerTarget"></span>
+                  </div>
+                  <button type="button" class="swap-flow-banner-cancel" id="swapFlowCancelBtn" aria-label="Cancel swap">Cancel</button>
+                </div>
 
                 <!-- Tab bar -->
                 <div class="profile-tabs">

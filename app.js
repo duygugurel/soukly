@@ -151,6 +151,9 @@ const elements = {
   swapDiffSummary: document.getElementById("swapDiffSummary"),
   swapSubmitButton: document.getElementById("swapSubmitButton"),
   swapFeedback: document.getElementById("swapFeedback"),
+  swapFlowBanner: document.getElementById("swapFlowBanner"),
+  swapFlowBannerTarget: document.getElementById("swapFlowBannerTarget"),
+  swapFlowCancelBtn: document.getElementById("swapFlowCancelBtn"),
   walletCard: document.getElementById("walletCard"),
   walletBalance: document.getElementById("walletBalance"),
   walletTopUpBtn: document.getElementById("walletTopUpBtn"),
@@ -539,6 +542,7 @@ function bindEvents() {
     if (e.target === elements.swapModalOverlay) closeSwapModal();
   });
   elements.swapSubmitButton?.addEventListener("click", handleSwapSubmit);
+  elements.swapFlowCancelBtn?.addEventListener("click", cancelSwapFlow);
   elements.walletTopUpBtn?.addEventListener("click", () => openWalletModal("topup"));
   elements.walletWithdrawBtn?.addEventListener("click", () => openWalletModal("withdraw"));
   elements.walletHistoryBtn?.addEventListener("click", toggleWalletHistory);
@@ -1908,6 +1912,9 @@ function renderListings() {
 }
 
 function renderProfile() {
+  // Page-based swap-flow banner (above tabs)
+  renderSwapFlowBanner();
+
   // Profile tab switching
   document.querySelectorAll("[data-profile-tab]").forEach((tab) => {
     tab.onclick = () => {
@@ -2574,7 +2581,22 @@ function createListingCard(product) {
     </button>
   `;
 
-  card.querySelector("[data-product-id]")?.addEventListener("click", () => openProductDetail(product.id));
+  card.querySelector("[data-product-id]")?.addEventListener("click", () => {
+    // If we're in the page-based swap flow and the user clicked one of
+    // their own products, jump straight to the finalize modal instead of
+    // opening the product detail.
+    if (
+      state.swapFlow?.targetProductId &&
+      state.currentUser &&
+      product.sellerProfileId === state.currentUser.profileId &&
+      product.id !== state.swapFlow.targetProductId &&
+      !product.isDemo
+    ) {
+      openSwapFinalize(product.id);
+      return;
+    }
+    openProductDetail(product.id);
+  });
   card.querySelector("[data-favorite-id]")?.addEventListener("click", (event) => {
     event.stopPropagation();
     toggleFavorite(product.id);
@@ -3413,6 +3435,10 @@ state.swapProposals = state.swapProposals || [];
 state.walletBalance = state.walletBalance || 0;
 state.walletTransactions = state.walletTransactions || [];
 state.swapModalSelection = null;
+// Page-based swap flow: when targetProductId is set, the user has clicked
+// "Propose a swap" on someone else's product and we routed them to their
+// own profile listings to pick the product they want to offer in exchange.
+state.swapFlow = state.swapFlow || { targetProductId: null };
 
 function loadWalletFromStorage() {
   try {
@@ -3597,6 +3623,9 @@ async function applyWalletTransaction(type, amount, description, extras = {}) {
 
 // ─── Swap proposal modal ───────────────────────────────────────────
 
+// Step 1 — entry point from the product detail "Propose a swap" button.
+// Instead of opening a modal we navigate the user to their own profile
+// listings, then they tap one of their own products to proceed to finalize.
 function openSwapModal() {
   const product = state.products.find((p) => p.id === state.selectedProductId);
   if (!product) return;
@@ -3604,57 +3633,103 @@ function openSwapModal() {
     document.getElementById("authModalOverlay").hidden = false;
     return;
   }
+  // Mark the flow as active and remember which product they want to swap for.
+  state.swapFlow = { targetProductId: product.id };
   state.swapModalSelection = null;
+  saveState();
+
+  // Switch to profile view + force the "Listings" tab so the user sees
+  // their own products as big cards.
+  activateView("profile");
+  const listingsTab = document.querySelector('[data-profile-tab="listings"]');
+  if (listingsTab) listingsTab.click();
+  // Re-render so the banner appears above the listings.
+  renderProfile();
+  renderListings();
+  // Scroll to top so the banner is visible immediately.
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Cancel the in-progress swap flow (banner X / cancel link).
+function cancelSwapFlow() {
+  state.swapFlow = { targetProductId: null };
+  state.swapModalSelection = null;
+  saveState();
+  renderProfile();
+  renderListings();
+}
+
+// Render (or hide) the "Pick a product to offer in swap" banner that sits
+// above the profile tabs while a swap flow is active.
+function renderSwapFlowBanner() {
+  if (!elements.swapFlowBanner) return;
+  const targetId = state.swapFlow?.targetProductId;
+  const target = targetId ? state.products.find((p) => p.id === targetId) : null;
+  if (!target) {
+    elements.swapFlowBanner.hidden = true;
+    return;
+  }
+  if (elements.swapFlowBannerTarget) {
+    elements.swapFlowBannerTarget.innerHTML = `
+      <img src="${target.image || placeholderImage}" alt="${escapeHtml(target.title)}" />
+      <span>For <strong>${escapeHtml(target.title)}</strong> · ${target.price} AED</span>
+    `;
+  }
+  elements.swapFlowBanner.hidden = false;
+}
+
+// Step 2 — user has tapped one of their own products in profile listings
+// while the swap flow is active. Open the existing modal in finalize-only
+// mode (no "your products" picker, just the pre-selected pair + send).
+function openSwapFinalize(myProductId) {
+  const targetProduct = state.products.find((p) => p.id === state.swapFlow?.targetProductId);
+  const myProduct = state.products.find((p) => p.id === myProductId);
+  if (!targetProduct || !myProduct) return;
+  if (myProduct.id === targetProduct.id) return; // can't swap a product for itself
+
+  // Hide the "Your products" picker section — we already know which one.
+  const picker = elements.swapMyProductList;
+  if (picker) picker.hidden = true;
+  const pickerLabel = picker?.previousElementSibling;
+  if (pickerLabel && pickerLabel.classList.contains("filter-section-label")) {
+    pickerLabel.hidden = true;
+  }
 
   // Fill target card
   if (elements.swapModalTargetCard) {
     elements.swapModalTargetCard.innerHTML = `
-      <img src="${product.image || placeholderImage}" alt="${escapeHtml(product.title)}" />
-      <span class="swap-modal-product-name">${escapeHtml(product.title)}</span>
-      <span class="swap-modal-product-price">${product.price} AED</span>
+      <img src="${targetProduct.image || placeholderImage}" alt="${escapeHtml(targetProduct.title)}" />
+      <span class="swap-modal-product-name">${escapeHtml(targetProduct.title)}</span>
+      <span class="swap-modal-product-price">${targetProduct.price} AED</span>
     `;
   }
 
-  // Reset mine slot
+  // Pre-fill mine slot with the chosen product
   if (elements.swapModalMineSlot) {
-    elements.swapModalMineSlot.innerHTML = `<div class="swap-modal-product-placeholder">Pick one of your products below</div>`;
+    elements.swapModalMineSlot.innerHTML = `
+      <div class="swap-modal-product-card">
+        <img src="${myProduct.image || placeholderImage}" alt="${escapeHtml(myProduct.title)}" />
+        <span class="swap-modal-product-name">${escapeHtml(myProduct.title)}</span>
+        <span class="swap-modal-product-price">${myProduct.price} AED</span>
+      </div>`;
   }
 
-  // List user's products (excluding the target)
-  const myProducts = state.products.filter((p) =>
-    p.sellerProfileId === state.currentUser.profileId && p.id !== product.id && !p.isDemo
-  );
-  if (!myProducts.length) {
-    elements.swapMyProductList.innerHTML = `<div class="empty-state compact">You haven't published any products yet. Add one first to propose a swap.</div>`;
-  } else {
-    elements.swapMyProductList.innerHTML = myProducts.map((p) => `
-      <button type="button" class="swap-my-product-pick" data-my-product-id="${p.id}">
-        <img src="${p.image || placeholderImage}" alt="${escapeHtml(p.title)}" />
-        <span class="swap-my-product-pick-name">${escapeHtml(p.title)}</span>
-        <span class="swap-my-product-pick-price">${p.price} AED</span>
-      </button>`).join("");
-    elements.swapMyProductList.querySelectorAll("[data-my-product-id]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.dataset.myProductId;
-        elements.swapMyProductList.querySelectorAll(".swap-my-product-pick").forEach((b) => b.classList.remove("is-selected"));
-        btn.classList.add("is-selected");
-        selectMyProductForSwap(id, product);
-      });
-    });
-  }
+  // Compute selection + diff summary directly
+  selectMyProductForSwap(myProductId, targetProduct);
 
   if (elements.swapProposalMessage) elements.swapProposalMessage.value = "";
-  if (elements.swapDiffSummary) {
-    elements.swapDiffSummary.hidden = true;
-    elements.swapDiffSummary.innerHTML = "";
-  }
-  if (elements.swapSubmitButton) elements.swapSubmitButton.disabled = true;
   if (elements.swapFeedback) elements.swapFeedback.hidden = true;
   elements.swapModalOverlay.hidden = false;
 }
 
 function closeSwapModal() {
   if (elements.swapModalOverlay) elements.swapModalOverlay.hidden = true;
+  // Restore picker visibility for any future legacy usage.
+  if (elements.swapMyProductList) elements.swapMyProductList.hidden = false;
+  const pickerLabel = elements.swapMyProductList?.previousElementSibling;
+  if (pickerLabel && pickerLabel.classList.contains("filter-section-label")) {
+    pickerLabel.hidden = false;
+  }
 }
 
 function selectMyProductForSwap(myProductId, targetProduct) {
@@ -3753,7 +3828,17 @@ async function handleSwapSubmit() {
 
   setButtonLoading(elements.swapSubmitButton, false, "Send swap proposal");
   showFeedback(elements.swapFeedback, "Swap proposal sent! The seller will be notified.", "success");
-  setTimeout(() => closeSwapModal(), 1100);
+  // Clear the page-based flow + return to detail view of the target product.
+  setTimeout(() => {
+    closeSwapModal();
+    state.swapFlow = { targetProductId: null };
+    state.swapModalSelection = null;
+    saveState();
+    renderProfile();
+    renderListings();
+    // Take the user back to the product they wanted to swap for.
+    if (targetProduct?.id) openProductDetail(targetProduct.id);
+  }, 1100);
 }
 
 // ─── Swap inbox / outbox (in profile Swaps tab) ────────────────────
