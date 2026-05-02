@@ -2558,7 +2558,11 @@ function createListingCard(product) {
     </div>
     <button type="button" class="listing-click-target" data-product-id="${product.id}">
       <div class="listing-image-wrap" style="position:relative;">
-        ${product.isSwapOpen ? `<span class="swap-badge"><svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg>Swap</span>` : ""}
+        ${product.isSwapOpen
+          ? (isOwner
+            ? `<span class="swap-badge"><svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg>Swap</span>`
+            : `<span class="swap-badge swap-badge-clickable" data-swap-trigger="${product.id}" role="button" tabindex="0" title="Propose a swap"><svg class="bicon" aria-hidden="true"><use href="#bicon-swap"/></svg>Swap</span>`)
+          : ""}
         <img src="${product.image || placeholderImage}" alt="${escapeHtml(product.title)}" class="listing-image" />
       </div>
       <div class="listing-body">
@@ -2601,6 +2605,21 @@ function createListingCard(product) {
     event.stopPropagation();
     toggleFavorite(product.id);
   });
+  // Swap badge directly starts the page-based swap flow (skipping detail view)
+  const swapTrigger = card.querySelector("[data-swap-trigger]");
+  if (swapTrigger) {
+    const fireSwap = (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      // Mark this product as the one we're swapping FOR, then enter the flow.
+      state.selectedProductId = product.id;
+      openSwapModal();
+    };
+    swapTrigger.addEventListener("click", fireSwap);
+    swapTrigger.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") fireSwap(e);
+    });
+  }
   card.querySelector("[data-edit-product-id]")?.addEventListener("click", (event) => {
     event.stopPropagation();
     startEditingProduct(product.id);

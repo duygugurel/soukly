@@ -1113,6 +1113,21 @@ button:disabled {
   width: 1.4em;
   height: 1.4em;
 }
+/* Clickable swap badge — directly starts the swap flow from the listing card */
+.swap-badge-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  user-select: none;
+}
+.swap-badge-clickable:hover {
+  transform: translateY(-1px) scale(1.04);
+  background: #fff !important;
+  box-shadow: 0 4px 12px rgba(38, 53, 46, 0.2) !important;
+}
+.swap-badge-clickable:focus-visible {
+  outline: 2px solid #26352e;
+  outline-offset: 2px;
+}
 /* The new bicon-swap has its own brand colours, so currentColor doesn't affect it */
 [href="#bicon-swap"], use[href="#bicon-swap"] { color: inherit; }
 
