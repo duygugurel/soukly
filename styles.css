@@ -1110,10 +1110,11 @@ button:disabled {
 .product-card .swap-badge .bicon,
 .detail-image-wrap .swap-badge .bicon,
 #detailSwapBadge .bicon {
-  width: 1.05em;
-  height: 1.05em;
-  color: #26352E;
+  width: 1.4em;
+  height: 1.4em;
 }
+/* The new bicon-swap has its own brand colours, so currentColor doesn't affect it */
+[href="#bicon-swap"], use[href="#bicon-swap"] { color: inherit; }
 
 /* ═══ Swap proposal modal ═══ */
 .swap-modal-products {
